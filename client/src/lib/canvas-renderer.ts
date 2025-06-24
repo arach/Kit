@@ -1,7 +1,7 @@
 import { IconMakerSettings } from "@/types/icon-maker";
 
 export function getShortText(text: string): string {
-  if (!text) return "IM";
+  if (!text) return "SC";
   const words = text.trim().split(" ");
   if (words.length === 1) {
     return words[0].substring(0, 2).toUpperCase();

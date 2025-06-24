@@ -7,7 +7,7 @@ import { ExportPanel } from "@/components/export-panel";
 import { IconMakerSettings } from "@/types/icon-maker";
 
 const defaultSettings: IconMakerSettings = {
-  text: "IconMaker",
+  text: "Scout",
   fontFamily: "Montserrat",
   fontSize: 48,
   fontWeight: 600,
@@ -56,7 +56,7 @@ export default function IconMaker() {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Palette className="text-white text-sm" />
             </div>
-            <h1 className="text-xl font-semibold text-slate-900">IconMaker Pro</h1>
+            <h1 className="text-xl font-semibold text-slate-900">Kit</h1>
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="sm">

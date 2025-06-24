@@ -1,8 +1,8 @@
-# IconMaker Pro - Text-Based Icon Creator
+# Kit - Text-Based Icon Creator
 
 ## Overview
 
-IconMaker Pro is a full-stack web application for creating professional text-based icons and wordmarks using Google Fonts. The application allows users to customize typography, colors, effects, and export high-quality assets for multiple platforms (iOS, Android, macOS, and web).
+Kit is a full-stack web application for creating professional text-based icons and wordmarks using Google Fonts. The application allows users to customize typography, colors, effects, and export high-quality assets for multiple platforms (iOS, Android, macOS, and web).
 
 ## System Architecture
 
@@ -30,7 +30,7 @@ IconMaker Pro is a full-stack web application for creating professional text-bas
 ## Key Components
 
 ### Frontend Components
-1. **IconMaker Page** (`client/src/pages/icon-maker.tsx`)
+1. **Kit Page** (`client/src/pages/icon-maker.tsx`)
    - Main application interface
    - Manages global settings state
    - Coordinates between sidebar controls and preview area
@@ -76,7 +76,7 @@ IconMaker Pro is a full-stack web application for creating professional text-bas
 ## Data Flow
 
 1. **User Interaction**: User modifies settings in ControlsSidebar
-2. **State Update**: Settings are updated in IconMaker component state
+2. **State Update**: Settings are updated in Kit component state
 3. **Real-time Preview**: PreviewArea receives updated settings and re-renders canvas
 4. **Font Loading**: Google Fonts are dynamically loaded when font family changes
 5. **Export Process**: ExportPanel generates multiple icon sizes and formats
@@ -131,7 +131,8 @@ IconMaker Pro is a full-stack web application for creating professional text-bas
 
 ```
 Changelog:
-- June 24, 2025. Initial setup
+- June 24, 2025. Initial setup with IconMaker Pro
+- June 24, 2025. Renamed to Kit and changed default text to Scout
 ```
 
 ## User Preferences

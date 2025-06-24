@@ -195,7 +195,7 @@ export function PreviewArea({ settings }: PreviewAreaProps) {
                     height={200} 
                     style={{ maxWidth: '100%', height: 'auto' }}
                   />
-                  <p className="text-sm text-slate-500 mt-2">Professional Icon Generator</p>
+                  <p className="text-sm text-slate-500 mt-2">Brand Asset Generator</p>
                 </div>
               </div>
             </div>

@@ -68,7 +68,7 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
               type="text"
               placeholder="Enter your text..."
               value={settings.text}
-              onChange={(e) => onSettingsChange({ text: e.target.value || "IconMaker" })}
+              onChange={(e) => onSettingsChange({ text: e.target.value || "Scout" })}
               className="w-full"
             />
           </div>
