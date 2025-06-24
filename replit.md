@@ -134,10 +134,12 @@ Changelog:
 - June 24, 2025. Initial setup with IconMaker Pro
 - June 24, 2025. Renamed to Kit and changed default text to Scout
 - June 24, 2025. Replaced canvas rendering with HTML/CSS for crisp vector text
+- June 24, 2025. Simplified Kit logo - removed gradient, made icon larger and clearer
 ```
 
 ## User Preferences
 
 ```
 Preferred communication style: Simple, everyday language.
+Design preferences: Clean, no unnecessary gradients, clear iconography.
 ```

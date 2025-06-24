@@ -4,12 +4,12 @@ interface MediaKitLogoProps {
 
 export function MediaKitLogo({ className = "w-8 h-8" }: MediaKitLogoProps) {
   return (
-    <div className={`${className} bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center shadow-sm relative overflow-hidden`}>
+    <div className={`${className} bg-primary rounded-lg flex items-center justify-center shadow-sm`}>
       {/* Main folder/briefcase shape */}
       <svg 
         viewBox="0 0 24 24" 
         fill="none" 
-        className="w-4 h-4 text-white relative z-10"
+        className="w-5 h-5 text-white"
         stroke="currentColor" 
         strokeWidth="1.5"
       >
@@ -19,9 +19,6 @@ export function MediaKitLogo({ className = "w-8 h-8" }: MediaKitLogoProps) {
         <path d="M9 15h6" />
         <circle cx="12" cy="11" r="1" fill="currentColor" />
       </svg>
-      
-      {/* Subtle gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-lg"></div>
     </div>
   );
 }
