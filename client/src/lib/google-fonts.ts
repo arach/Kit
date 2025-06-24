@@ -179,12 +179,23 @@ export async function getAvailableFonts(): Promise<string[]> {
 export async function searchGoogleFonts(query: string): Promise<string[]> {
   if (!query.trim()) return POPULAR_FONTS;
   
+  try {
+    // First try to fetch from Google Fonts API via our backend proxy
+    const response = await fetch(`/api/fonts/search?q=${encodeURIComponent(query)}`);
+    if (response.ok) {
+      const data = await response.json();
+      return data.fonts || [];
+    }
+  } catch (error) {
+    console.warn('Failed to fetch from Google Fonts API, falling back to local search');
+  }
+  
+  // Fallback to local search
   const searchTerm = query.toLowerCase();
   const filteredFonts = GOOGLE_FONTS_LIST.filter(font => 
     font.toLowerCase().includes(searchTerm)
   );
   
-  // If we have matches, return them, otherwise return popular fonts
   return filteredFonts.length > 0 ? filteredFonts.slice(0, 20) : POPULAR_FONTS;
 }
 

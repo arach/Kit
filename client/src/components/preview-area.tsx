@@ -28,18 +28,24 @@ interface IconPreviewProps {
 }
 
 function IconPreview({ title, size, settings, dimensions, borderRadius = "rounded-lg", showMultipleSizes = false }: IconPreviewProps) {
-  const getIconStyle = (iconSize: number) => ({
-    fontFamily: `'${settings.fontFamily}', sans-serif`,
-    fontSize: `${iconSize * 0.4}px`,
-    fontWeight: settings.fontWeight,
-    color: settings.textColor,
-    textShadow: settings.dropShadow.enabled 
-      ? `${settings.dropShadow.offsetX}px ${settings.dropShadow.offsetY}px ${settings.dropShadow.blur}px rgba(0,0,0,${settings.dropShadow.opacity})` 
-      : 'none',
-    WebkitTextStroke: settings.textStroke.enabled 
-      ? `${settings.textStroke.width}px ${settings.textStroke.color}` 
-      : 'none',
-  });
+  const getIconStyle = (iconSize: number) => {
+    // Calculate font size based on both the icon size and user's font size setting
+    const baseFontSize = Math.min(iconSize * 0.4, settings.fontSize);
+    const scaledFontSize = Math.max(baseFontSize, iconSize * 0.2); // Ensure minimum readability
+    
+    return {
+      fontFamily: `'${settings.fontFamily}', sans-serif`,
+      fontSize: `${scaledFontSize}px`,
+      fontWeight: settings.fontWeight,
+      color: settings.textColor,
+      textShadow: settings.dropShadow.enabled 
+        ? `${settings.dropShadow.offsetX}px ${settings.dropShadow.offsetY}px ${settings.dropShadow.blur}px rgba(0,0,0,${settings.dropShadow.opacity})` 
+        : 'none',
+      WebkitTextStroke: settings.textStroke.enabled 
+        ? `${settings.textStroke.width}px ${settings.textStroke.color}` 
+        : 'none',
+    };
+  };
 
   const getBackgroundStyle = () => {
     if (settings.backgroundType === "solid") {
@@ -122,7 +128,7 @@ export function PreviewArea({ settings }: PreviewAreaProps) {
 
   const getWordmarkStyle = () => ({
     fontFamily: `'${settings.fontFamily}', sans-serif`,
-    fontSize: '72px',
+    fontSize: `${Math.max(settings.fontSize * 1.5, 48)}px`, // Scale with user setting, minimum 48px
     fontWeight: settings.fontWeight,
     color: settings.textColor,
     textShadow: settings.dropShadow.enabled 
@@ -135,7 +141,7 @@ export function PreviewArea({ settings }: PreviewAreaProps) {
 
   const getSocialStyle = () => ({
     fontFamily: `'${settings.fontFamily}', sans-serif`,
-    fontSize: '32px',
+    fontSize: `${Math.max(settings.fontSize * 0.67, 24)}px`, // Scale with user setting, minimum 24px
     fontWeight: settings.fontWeight,
     color: settings.textColor,
     textShadow: settings.dropShadow.enabled 
