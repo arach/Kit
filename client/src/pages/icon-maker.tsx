@@ -29,7 +29,7 @@ const defaultSettings: IconMakerSettings = {
     color: "#000000"
   },
   textBreakpoints: {
-    enabled: false,
+    enabled: true,
     smallText: "S",
     mediumText: "SC",
     largeText: "Scout",
