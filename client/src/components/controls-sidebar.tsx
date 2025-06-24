@@ -6,8 +6,9 @@ import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
+import { Search } from "lucide-react";
 import { IconMakerSettings } from "@/types/icon-maker";
-import { loadGoogleFont, getAvailableFonts } from "@/lib/google-fonts";
+import { loadGoogleFont, getAvailableFonts, searchGoogleFonts } from "@/lib/google-fonts";
 
 interface ControlsSidebarProps {
   settings: IconMakerSettings;
@@ -29,10 +30,20 @@ const fontWeights = [
 
 export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarProps) {
   const [availableFonts, setAvailableFonts] = useState<string[]>([]);
+  const [fontSearchQuery, setFontSearchQuery] = useState("");
+  const [showFontSearch, setShowFontSearch] = useState(false);
 
   useEffect(() => {
     getAvailableFonts().then(setAvailableFonts);
   }, []);
+
+  useEffect(() => {
+    if (fontSearchQuery.trim()) {
+      searchGoogleFonts(fontSearchQuery).then(setAvailableFonts);
+    } else {
+      getAvailableFonts().then(setAvailableFonts);
+    }
+  }, [fontSearchQuery]);
 
   useEffect(() => {
     loadGoogleFont(settings.fontFamily, [settings.fontWeight]);
@@ -81,7 +92,30 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
           </h3>
           <div className="space-y-4">
             <div>
-              <Label className="text-sm font-medium text-slate-700 mb-2">Font Family</Label>
+              <div className="flex items-center justify-between mb-2">
+                <Label className="text-sm font-medium text-slate-700">Font Family</Label>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowFontSearch(!showFontSearch)}
+                  className="h-6 px-2"
+                >
+                  <Search className="h-3 w-3" />
+                </Button>
+              </div>
+              
+              {showFontSearch && (
+                <div className="mb-3">
+                  <Input
+                    type="text"
+                    placeholder="Search Google Fonts..."
+                    value={fontSearchQuery}
+                    onChange={(e) => setFontSearchQuery(e.target.value)}
+                    className="text-sm"
+                  />
+                </div>
+              )}
+              
               <Select value={settings.fontFamily} onValueChange={handleFontChange}>
                 <SelectTrigger>
                   <SelectValue />

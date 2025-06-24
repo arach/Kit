@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Palette, Download, HelpCircle } from "lucide-react";
+import { Download, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ControlsSidebar } from "@/components/controls-sidebar";
 import { PreviewArea } from "@/components/preview-area";
 import { ExportPanel } from "@/components/export-panel";
+import { MediaKitLogo } from "@/components/media-kit-logo";
 import { IconMakerSettings } from "@/types/icon-maker";
 
 const defaultSettings: IconMakerSettings = {
@@ -53,10 +54,9 @@ export default function IconMaker() {
       <header className="bg-white border-b border-slate-200 px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Palette className="text-white text-sm" />
-            </div>
+            <MediaKitLogo />
             <h1 className="text-xl font-semibold text-slate-900">Kit</h1>
+            <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">Media Assets</span>
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="sm">
