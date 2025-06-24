@@ -20,6 +20,13 @@ export interface ExportFormats {
   web: boolean;
 }
 
+export interface TextBreakpoints {
+  enabled: boolean;
+  smallText: string;    // For sizes < 64px
+  mediumText: string;   // For sizes 64-128px
+  largeText: string;    // For sizes > 128px
+}
+
 export interface IconMakerSettings {
   text: string;
   fontFamily: string;
@@ -30,5 +37,6 @@ export interface IconMakerSettings {
   textColor: string;
   dropShadow: DropShadowSettings;
   textStroke: TextStrokeSettings;
+  textBreakpoints: TextBreakpoints;
   exportFormats: ExportFormats;
 }

@@ -408,6 +408,94 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
           </div>
         </div>
 
+        {/* Text Breakpoints Section */}
+        <div className="space-y-4 pb-6">
+          <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide">
+            Smart Text Cutoffs
+          </h3>
+          
+          <div className="space-y-3">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="breakpoints-enabled"
+                checked={settings.textBreakpoints.enabled}
+                onCheckedChange={(checked) => 
+                  onSettingsChange({
+                    textBreakpoints: {
+                      ...settings.textBreakpoints,
+                      enabled: checked as boolean
+                    }
+                  })
+                }
+              />
+              <label htmlFor="breakpoints-enabled" className="text-sm text-slate-700">
+                Use different text for small sizes
+              </label>
+            </div>
+
+            {settings.textBreakpoints.enabled && (
+              <div className="space-y-3 pl-6 border-l-2 border-slate-200">
+                <div>
+                  <label className="block text-xs font-medium text-slate-700 mb-1">
+                    Small (16-32px)
+                  </label>
+                  <Input
+                    value={settings.textBreakpoints.smallText}
+                    onChange={(e) => 
+                      onSettingsChange({
+                        textBreakpoints: {
+                          ...settings.textBreakpoints,
+                          smallText: e.target.value
+                        }
+                      })
+                    }
+                    placeholder="S"
+                    className="text-sm"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-xs font-medium text-slate-700 mb-1">
+                    Medium (64-128px)
+                  </label>
+                  <Input
+                    value={settings.textBreakpoints.mediumText}
+                    onChange={(e) => 
+                      onSettingsChange({
+                        textBreakpoints: {
+                          ...settings.textBreakpoints,
+                          mediumText: e.target.value
+                        }
+                      })
+                    }
+                    placeholder="SC"
+                    className="text-sm"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-xs font-medium text-slate-700 mb-1">
+                    Large (256px+)
+                  </label>
+                  <Input
+                    value={settings.textBreakpoints.largeText}
+                    onChange={(e) => 
+                      onSettingsChange({
+                        textBreakpoints: {
+                          ...settings.textBreakpoints,
+                          largeText: e.target.value
+                        }
+                      })
+                    }
+                    placeholder="Scout"
+                    className="text-sm"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Color Presets Section */}
         <ColorPresets onApplyPreset={onSettingsChange} />
 

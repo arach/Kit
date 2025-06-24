@@ -30,6 +30,20 @@ function getShortText(text: string): string {
   return words.map(word => word[0]).join("").substring(0, 2).toUpperCase();
 }
 
+function getTextForSize(size: number, settings: IconMakerSettings): string {
+  if (!settings.textBreakpoints.enabled) {
+    return settings.text;
+  }
+
+  if (size <= 32) {
+    return settings.textBreakpoints.smallText || getShortText(settings.text);
+  } else if (size <= 128) {
+    return settings.textBreakpoints.mediumText || getShortText(settings.text);
+  } else {
+    return settings.textBreakpoints.largeText || settings.text;
+  }
+}
+
 interface IconPreviewProps {
   title: string;
   size: string;
@@ -40,6 +54,7 @@ interface IconPreviewProps {
 }
 
 function IconPreview({ title, size, settings, dimensions, borderRadius = "rounded-lg", showMultipleSizes = false }: IconPreviewProps) {
+  const displayText = getTextForSize(Math.max(dimensions.width, dimensions.height), settings);
   const getIconStyle = (iconSize: number) => {
     // Calculate font size based on both the icon size and user's font size setting
     const baseFontSize = Math.min(iconSize * 0.4, settings.fontSize);
@@ -351,7 +366,7 @@ export function PreviewArea({ settings }: PreviewAreaProps) {
                         }}
                       >
                         <span style={getIconStyle(size)}>
-                          {currentDevice.iconSizes.length > 2 && size < 64 ? getShortText(settings.text) : settings.text}
+                          {getTextForSize(size, settings)}
                         </span>
                       </div>
                       <p className="text-xs text-slate-500 mt-1">{size}px</p>

@@ -144,6 +144,7 @@ Changelog:
 - June 24, 2025. Added focused color palettes (Neutrals, Blues, Greens, etc.)
 - June 24, 2025. Created contextual brand previews for real-world usage scenarios
 - June 24, 2025. Streamlined theme picker to maintain focus on core icon generation
+- June 24, 2025. Added smart text cutoffs with breakpoint-specific text variations
 ```
 
 ## User Preferences

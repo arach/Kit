@@ -13,6 +13,20 @@ function getShortText(text: string): string {
   return words.map(word => word[0]).join("").substring(0, 2).toUpperCase();
 }
 
+function getTextForSize(size: number, settings: IconMakerSettings): string {
+  if (!settings.textBreakpoints.enabled) {
+    return settings.text;
+  }
+
+  if (size <= 32) {
+    return settings.textBreakpoints.smallText || getShortText(settings.text);
+  } else if (size <= 128) {
+    return settings.textBreakpoints.mediumText || getShortText(settings.text);
+  } else {
+    return settings.textBreakpoints.largeText || settings.text;
+  }
+}
+
 export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
   const getLogoStyle = (size: 'small' | 'medium' | 'large') => {
     const sizes = {
@@ -70,7 +84,7 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
                 style={getBackgroundStyle()}
               >
                 <span style={getLogoStyle('small')}>
-                  {getShortText(settings.text)}
+                  {getTextForSize(32, settings)}
                 </span>
               </div>
               <span style={getLogoStyle('medium')} className="font-semibold">
@@ -159,7 +173,7 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
                 style={getBackgroundStyle()}
               >
                 <span style={getLogoStyle('medium')}>
-                  {getShortText(settings.text)}
+                  {getTextForSize(48, settings)}
                 </span>
               </div>
               <div className="text-xs truncate">{settings.text}</div>
