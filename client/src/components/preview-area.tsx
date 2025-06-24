@@ -1,12 +1,21 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Smartphone, Monitor, Tablet } from "lucide-react";
 import { IconMakerSettings } from "@/types/icon-maker";
-import { renderIconToCanvas, getShortText } from "@/lib/canvas-renderer";
+import { loadGoogleFont } from "@/lib/google-fonts";
 
 interface PreviewAreaProps {
   settings: IconMakerSettings;
+}
+
+function getShortText(text: string): string {
+  if (!text) return "SC";
+  const words = text.trim().split(" ");
+  if (words.length === 1) {
+    return words[0].substring(0, 2).toUpperCase();
+  }
+  return words.map(word => word[0]).join("").substring(0, 2).toUpperCase();
 }
 
 interface IconPreviewProps {
@@ -19,13 +28,40 @@ interface IconPreviewProps {
 }
 
 function IconPreview({ title, size, settings, dimensions, borderRadius = "rounded-lg", showMultipleSizes = false }: IconPreviewProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-  useEffect(() => {
-    if (canvasRef.current) {
-      renderIconToCanvas(canvasRef.current, settings, dimensions);
+  const getIconStyle = (iconSize: number) => ({
+    fontFamily: `'${settings.fontFamily}', sans-serif`,
+    fontSize: `${iconSize * 0.4}px`,
+    fontWeight: settings.fontWeight,
+    color: settings.textColor,
+    textShadow: settings.dropShadow.enabled 
+      ? `${settings.dropShadow.offsetX}px ${settings.dropShadow.offsetY}px ${settings.dropShadow.blur}px rgba(0,0,0,${settings.dropShadow.opacity})` 
+      : 'none',
+    WebkitTextStroke: settings.textStroke.enabled 
+      ? `${settings.textStroke.width}px ${settings.textStroke.color}` 
+      : 'none',
+  });
+
+  const getBackgroundStyle = () => {
+    if (settings.backgroundType === "solid") {
+      return { backgroundColor: settings.backgroundColor };
+    } else if (settings.backgroundType === "gradient") {
+      return { 
+        background: `linear-gradient(135deg, ${settings.backgroundColor}, ${adjustBrightness(settings.backgroundColor, -20)})` 
+      };
     }
-  }, [settings, dimensions]);
+    return { backgroundColor: 'transparent' };
+  };
+
+  const adjustBrightness = (hexColor: string, percent: number): string => {
+    const num = parseInt(hexColor.replace("#", ""), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = (num >> 16) + amt;
+    const G = (num >> 8 & 0x00FF) + amt;
+    const B = (num & 0x0000FF) + amt;
+    return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+      (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+      (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+  };
 
   if (showMultipleSizes) {
     return (
@@ -35,26 +71,21 @@ function IconPreview({ title, size, settings, dimensions, borderRadius = "rounde
           <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">{size}</span>
         </div>
         <div className="flex justify-center items-center space-x-4">
-          <div className="w-8 h-8 bg-white border border-slate-200 rounded flex items-center justify-center">
-            <span className="text-xs font-semibold text-slate-900" style={{ fontFamily: `'${settings.fontFamily}', sans-serif` }}>
-              {getShortText(settings.text)}
-            </span>
-          </div>
-          <div className="w-16 h-16 bg-white border border-slate-200 rounded-lg flex items-center justify-center">
-            <span className="text-sm font-semibold text-slate-900" style={{ 
-              fontFamily: `'${settings.fontFamily}', sans-serif`,
-              textShadow: settings.dropShadow.enabled ? `${settings.dropShadow.offsetX}px ${settings.dropShadow.offsetY}px ${settings.dropShadow.blur}px rgba(0,0,0,${settings.dropShadow.opacity})` : 'none'
-            }}>
-              {getShortText(settings.text)}
-            </span>
-          </div>
-          <canvas 
-            ref={canvasRef} 
-            width={128} 
-            height={128} 
-            className="border border-slate-200 rounded-lg shadow-lg"
-            style={{ width: '128px', height: '128px' }}
-          />
+          {[32, 64, 128].map((iconSize) => (
+            <div
+              key={iconSize}
+              className={`border border-slate-200 ${borderRadius} flex items-center justify-center`}
+              style={{
+                width: `${iconSize}px`,
+                height: `${iconSize}px`,
+                ...getBackgroundStyle()
+              }}
+            >
+              <span style={getIconStyle(iconSize)}>
+                {dimensions.width > 300 ? settings.text : getShortText(settings.text)}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -67,41 +98,74 @@ function IconPreview({ title, size, settings, dimensions, borderRadius = "rounde
         <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">{size}</span>
       </div>
       <div className="flex justify-center">
-        <canvas 
-          ref={canvasRef} 
-          width={dimensions.width} 
-          height={dimensions.height} 
-          className={`border border-slate-200 ${borderRadius} ${title.includes('iOS') ? 'shadow-lg' : ''}`}
-          style={{ width: '128px', height: '128px' }}
-        />
+        <div
+          className={`border border-slate-200 ${borderRadius} ${title.includes('iOS') ? 'shadow-lg' : ''} flex items-center justify-center`}
+          style={{
+            width: '128px',
+            height: '128px',
+            ...getBackgroundStyle()
+          }}
+        >
+          <span style={getIconStyle(128)}>
+            {dimensions.width > 300 ? settings.text : getShortText(settings.text)}
+          </span>
+        </div>
       </div>
     </div>
   );
 }
 
 export function PreviewArea({ settings }: PreviewAreaProps) {
-  const wordmarkCanvasRef = useRef<HTMLCanvasElement>(null);
-  const socialCanvasRef = useRef<HTMLCanvasElement>(null);
-
   useEffect(() => {
-    if (wordmarkCanvasRef.current) {
-      renderIconToCanvas(wordmarkCanvasRef.current, {
-        ...settings,
-        text: settings.text,
-        fontSize: 72
-      }, { width: 600, height: 200 });
-    }
-  }, [settings]);
+    loadGoogleFont(settings.fontFamily, [settings.fontWeight]);
+  }, [settings.fontFamily, settings.fontWeight]);
 
-  useEffect(() => {
-    if (socialCanvasRef.current) {
-      renderIconToCanvas(socialCanvasRef.current, {
-        ...settings,
-        text: settings.text,
-        fontSize: 32
-      }, { width: 320, height: 160 });
+  const getWordmarkStyle = () => ({
+    fontFamily: `'${settings.fontFamily}', sans-serif`,
+    fontSize: '72px',
+    fontWeight: settings.fontWeight,
+    color: settings.textColor,
+    textShadow: settings.dropShadow.enabled 
+      ? `${settings.dropShadow.offsetX}px ${settings.dropShadow.offsetY}px ${settings.dropShadow.blur}px rgba(0,0,0,${settings.dropShadow.opacity})` 
+      : 'none',
+    WebkitTextStroke: settings.textStroke.enabled 
+      ? `${settings.textStroke.width}px ${settings.textStroke.color}` 
+      : 'none',
+  });
+
+  const getSocialStyle = () => ({
+    fontFamily: `'${settings.fontFamily}', sans-serif`,
+    fontSize: '32px',
+    fontWeight: settings.fontWeight,
+    color: settings.textColor,
+    textShadow: settings.dropShadow.enabled 
+      ? `${settings.dropShadow.offsetX}px ${settings.dropShadow.offsetY}px ${settings.dropShadow.blur}px rgba(0,0,0,${settings.dropShadow.opacity})` 
+      : 'none',
+    WebkitTextStroke: settings.textStroke.enabled 
+      ? `${settings.textStroke.width}px ${settings.textStroke.color}` 
+      : 'none',
+  });
+
+  const getBackgroundStyle = () => {
+    if (settings.backgroundType === "solid") {
+      return { backgroundColor: settings.backgroundColor };
+    } else if (settings.backgroundType === "gradient") {
+      const adjustBrightness = (hexColor: string, percent: number): string => {
+        const num = parseInt(hexColor.replace("#", ""), 16);
+        const amt = Math.round(2.55 * percent);
+        const R = (num >> 16) + amt;
+        const G = (num >> 8 & 0x00FF) + amt;
+        const B = (num & 0x0000FF) + amt;
+        return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+          (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+          (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+      };
+      return { 
+        background: `linear-gradient(135deg, ${settings.backgroundColor}, ${adjustBrightness(settings.backgroundColor, -20)})` 
+      };
     }
-  }, [settings]);
+    return { backgroundColor: 'transparent' };
+  };
 
   return (
     <div className="flex-1 flex flex-col bg-slate-100">
@@ -189,12 +253,19 @@ export function PreviewArea({ settings }: PreviewAreaProps) {
               </div>
               <div className="flex justify-center py-8">
                 <div className="text-center">
-                  <canvas 
-                    ref={wordmarkCanvasRef} 
-                    width={600} 
-                    height={200} 
-                    style={{ maxWidth: '100%', height: 'auto' }}
-                  />
+                  <div 
+                    className="border border-slate-200 rounded-lg flex items-center justify-center"
+                    style={{
+                      width: '600px',
+                      height: '200px',
+                      maxWidth: '100%',
+                      ...getBackgroundStyle()
+                    }}
+                  >
+                    <span style={getWordmarkStyle()}>
+                      {settings.text}
+                    </span>
+                  </div>
                   <p className="text-sm text-slate-500 mt-2">Brand Asset Generator</p>
                 </div>
               </div>
@@ -207,13 +278,18 @@ export function PreviewArea({ settings }: PreviewAreaProps) {
                 <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">1200×630</span>
               </div>
               <div className="flex justify-center">
-                <canvas 
-                  ref={socialCanvasRef} 
-                  width={320} 
-                  height={160} 
-                  className="border border-slate-200 rounded-lg shadow-sm"
-                  style={{ width: '160px', height: '80px' }}
-                />
+                <div 
+                  className="border border-slate-200 rounded-lg shadow-sm flex items-center justify-center"
+                  style={{
+                    width: '320px',
+                    height: '160px',
+                    ...getBackgroundStyle()
+                  }}
+                >
+                  <span style={getSocialStyle()}>
+                    {settings.text}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

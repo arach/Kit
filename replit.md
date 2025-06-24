@@ -133,6 +133,7 @@ Kit is a full-stack web application for creating professional text-based icons a
 Changelog:
 - June 24, 2025. Initial setup with IconMaker Pro
 - June 24, 2025. Renamed to Kit and changed default text to Scout
+- June 24, 2025. Replaced canvas rendering with HTML/CSS for crisp vector text
 ```
 
 ## User Preferences
