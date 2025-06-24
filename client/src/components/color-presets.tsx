@@ -11,11 +11,33 @@ interface ColorPalette {
 interface Theme {
   name: string;
   description: string;
+  fontFamily: string;
+  fontSize: number;
+  fontWeight: number;
   backgroundColor: string;
   textColor: string;
-  strokeColor: string;
   backgroundType: "solid" | "gradient" | "none";
-  strokeEnabled: boolean;
+  textStroke: {
+    enabled: boolean;
+    width: number;
+    color: string;
+  };
+  dropShadow: {
+    enabled: boolean;
+    offsetX: number;
+    offsetY: number;
+    blur: number;
+    opacity: number;
+    color: string;
+  };
+  textBreakpoints: {
+    enabled: boolean;
+    smallText: string;
+    mediumText: string;
+    largeText: string;
+    smallMax: number;
+    mediumMax: number;
+  };
 }
 
 interface ColorCombination {

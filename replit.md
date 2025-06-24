@@ -158,6 +158,8 @@ Changelog:
 - June 24, 2025. Enhanced web export bundle with comprehensive logo variations (navigation, wordmarks, social media)
 - June 24, 2025. Fixed text sizing to ensure all treatments fit properly within containers
 - June 24, 2025. Added smart cutoffs support to export functions for appropriate text at each size
+- June 24, 2025. Massively expanded web export bundle with 70+ formats covering all use cases
+- June 24, 2025. Enhanced theme system to include complete "kit" configurations with fonts, effects, and breakpoints
 ```
 
 ## User Preferences

@@ -41,12 +41,90 @@ const EXPORT_SIZES = {
     { name: "icon-16.png", width: 16, height: 16 }
   ],
   web: [
-    { name: "favicon-256.png", width: 256, height: 256 },
-    { name: "favicon-192.png", width: 192, height: 192 },
-    { name: "favicon-96.png", width: 96, height: 96 },
-    { name: "favicon-64.png", width: 64, height: 64 },
+    // Standard favicons
+    { name: "favicon-16.png", width: 16, height: 16 },
     { name: "favicon-32.png", width: 32, height: 32 },
-    { name: "favicon-16.png", width: 16, height: 16 }
+    { name: "favicon-48.png", width: 48, height: 48 },
+    { name: "favicon-64.png", width: 64, height: 64 },
+    { name: "favicon-96.png", width: 96, height: 96 },
+    { name: "favicon-128.png", width: 128, height: 128 },
+    { name: "favicon-192.png", width: 192, height: 192 },
+    { name: "favicon-256.png", width: 256, height: 256 },
+    { name: "favicon-512.png", width: 512, height: 512 },
+    
+    // Apple touch icons
+    { name: "apple-touch-icon-57.png", width: 57, height: 57 },
+    { name: "apple-touch-icon-60.png", width: 60, height: 60 },
+    { name: "apple-touch-icon-72.png", width: 72, height: 72 },
+    { name: "apple-touch-icon-76.png", width: 76, height: 76 },
+    { name: "apple-touch-icon-114.png", width: 114, height: 114 },
+    { name: "apple-touch-icon-120.png", width: 120, height: 120 },
+    { name: "apple-touch-icon-144.png", width: 144, height: 144 },
+    { name: "apple-touch-icon-152.png", width: 152, height: 152 },
+    { name: "apple-touch-icon-180.png", width: 180, height: 180 },
+    
+    // Android chrome icons
+    { name: "android-chrome-36.png", width: 36, height: 36 },
+    { name: "android-chrome-48.png", width: 48, height: 48 },
+    { name: "android-chrome-72.png", width: 72, height: 72 },
+    { name: "android-chrome-96.png", width: 96, height: 96 },
+    { name: "android-chrome-144.png", width: 144, height: 144 },
+    { name: "android-chrome-192.png", width: 192, height: 192 },
+    { name: "android-chrome-256.png", width: 256, height: 256 },
+    { name: "android-chrome-384.png", width: 384, height: 384 },
+    { name: "android-chrome-512.png", width: 512, height: 512 },
+    
+    // Navigation logos (square)
+    { name: "logo-nav-24.png", width: 24, height: 24 },
+    { name: "logo-nav-28.png", width: 28, height: 28 },
+    { name: "logo-nav-32.png", width: 32, height: 32 },
+    { name: "logo-nav-40.png", width: 40, height: 40 },
+    { name: "logo-nav-48.png", width: 48, height: 48 },
+    { name: "logo-nav-56.png", width: 56, height: 56 },
+    { name: "logo-nav-64.png", width: 64, height: 64 },
+    { name: "logo-nav-80.png", width: 80, height: 80 },
+    { name: "logo-nav-96.png", width: 96, height: 96 },
+    { name: "logo-nav-128.png", width: 128, height: 128 },
+    
+    // Header logos (rectangular - wider)
+    { name: "logo-header-150x40.png", width: 150, height: 40 },
+    { name: "logo-header-200x50.png", width: 200, height: 50 },
+    { name: "logo-header-250x60.png", width: 250, height: 60 },
+    { name: "logo-header-300x75.png", width: 300, height: 75 },
+    { name: "logo-header-400x100.png", width: 400, height: 100 },
+    { name: "logo-header-500x125.png", width: 500, height: 125 },
+    { name: "logo-header-600x150.png", width: 600, height: 150 },
+    
+    // Hero/banner logos (large rectangular)
+    { name: "logo-hero-800x200.png", width: 800, height: 200 },
+    { name: "logo-hero-1000x250.png", width: 1000, height: 250 },
+    { name: "logo-hero-1200x300.png", width: 1200, height: 300 },
+    
+    // Social media formats
+    { name: "social-square-400.png", width: 400, height: 400 },
+    { name: "social-square-512.png", width: 512, height: 512 },
+    { name: "social-square-1024.png", width: 1024, height: 1024 },
+    { name: "social-cover-1200x630.png", width: 1200, height: 630 },
+    { name: "social-cover-1920x1080.png", width: 1920, height: 1080 },
+    
+    // Print & business formats
+    { name: "business-card-300.png", width: 300, height: 300 },
+    { name: "letterhead-200.png", width: 200, height: 200 },
+    { name: "letterhead-300.png", width: 300, height: 300 },
+    
+    // App store formats
+    { name: "app-store-1024.png", width: 1024, height: 1024 },
+    { name: "play-store-512.png", width: 512, height: 512 },
+    
+    // Email signature
+    { name: "email-signature-120x40.png", width: 120, height: 40 },
+    { name: "email-signature-150x50.png", width: 150, height: 50 },
+    
+    // Transparent background variants (for overlays)
+    { name: "logo-transparent-64.png", width: 64, height: 64 },
+    { name: "logo-transparent-128.png", width: 128, height: 128 },
+    { name: "logo-transparent-256.png", width: 256, height: 256 },
+    { name: "logo-transparent-512.png", width: 512, height: 512 }
   ]
 };
 
