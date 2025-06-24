@@ -102,13 +102,18 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
           {/* Hero Section */}
           <div className="text-center py-8">
             <h1 className="text-lg font-bold text-slate-900 mb-2">
-              Welcome to {getTextForSize(64, settings)}
+              Build faster with {getTextForSize(64, settings)}
             </h1>
             <p className="text-xs text-slate-600 mb-4">
-              The ultimate solution for your business needs
+              Professional icon generation and brand asset creation for modern teams
             </p>
-            <div className="w-16 h-6 bg-blue-500 rounded text-white text-xs flex items-center justify-center mx-auto">
-              Get Started
+            <div className="flex items-center justify-center space-x-2">
+              <div className="w-12 h-5 bg-blue-500 rounded text-white text-xs flex items-center justify-center">
+                Start Free
+              </div>
+              <div className="w-12 h-5 border border-slate-300 rounded text-slate-700 text-xs flex items-center justify-center">
+                Learn More
+              </div>
             </div>
           </div>
         </div>
@@ -200,27 +205,25 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <h3 className="text-sm font-semibold text-slate-900 mb-4">Business Card</h3>
         <div className="bg-white border-2 border-slate-200 rounded-lg p-4 text-xs shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center space-x-2 mb-2">
-                <div 
-                  className="w-6 h-6 rounded flex items-center justify-center"
-                  style={getBackgroundStyle()}
-                >
-                  <span style={getLogoStyle('small')}>
-                    {getShortText(settings.text)}
-                  </span>
-                </div>
-                <span style={getLogoStyle('medium')} className="font-bold">
-                  {getTextForSize(64, settings)}
+          <div className="text-center">
+            <div className="flex items-center space-x-2 mb-3 justify-center">
+              <div 
+                className="w-6 h-6 rounded flex items-center justify-center"
+                style={getBackgroundStyle()}
+              >
+                <span style={getLogoStyle('small')}>
+                  {getTextForSize(24, settings)}
                 </span>
               </div>
-              <div className="text-slate-600 space-y-1">
-                <div>John Smith</div>
-                <div>CEO & Founder</div>
-                <div>john@{getTextForSize(64, settings).toLowerCase()}.com</div>
-                <div>+1 (555) 123-4567</div>
-              </div>
+              <span style={getLogoStyle('medium')} className="font-bold">
+                {getTextForSize(64, settings)}
+              </span>
+            </div>
+            <div className="text-slate-600 space-y-1">
+              <div>John Smith</div>
+              <div>CEO & Founder</div>
+              <div>john@{getTextForSize(64, settings).toLowerCase()}.com</div>
+              <div>+1 (555) 123-4567</div>
             </div>
           </div>
         </div>

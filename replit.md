@@ -148,6 +148,8 @@ Changelog:
 - June 24, 2025. Made breakpoints configurable with Tailwind-inspired defaults (48px, 128px)
 - June 24, 2025. Added color combination presets for beautiful foreground/background pairs
 - June 24, 2025. Simplified contextual previews to show just logos without redundant text
+- June 24, 2025. Added save/load functionality for settings as JSON files
+- June 24, 2025. Improved SaaS landing page content and business card layout centering
 ```
 
 ## User Preferences

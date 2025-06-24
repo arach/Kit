@@ -6,7 +6,7 @@ import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
-import { Search } from "lucide-react";
+import { Search, Download } from "lucide-react";
 import { IconMakerSettings } from "@/types/icon-maker";
 import { loadGoogleFont, getAvailableFonts, searchGoogleFonts } from "@/lib/google-fonts";
 import { ColorPresets } from "@/components/color-presets";
@@ -588,6 +588,60 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
 
         {/* Color Presets Section */}
         <ColorPresets onApplyPreset={onSettingsChange} />
+
+        {/* Save/Load Settings Section */}
+        <div className="space-y-4 pb-6">
+          <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide">
+            Save & Load
+          </h3>
+          
+          <div className="space-y-3">
+            <Button
+              variant="outline"
+              onClick={() => {
+                const settingsJson = JSON.stringify(settings, null, 2);
+                const blob = new Blob([settingsJson], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `kit-settings-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+              }}
+              className="w-full text-sm"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Save Settings
+            </Button>
+            
+            <div>
+              <Input
+                type="file"
+                accept=".json"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                      try {
+                        const loadedSettings = JSON.parse(event.target?.result as string);
+                        onSettingsChange(loadedSettings);
+                      } catch (error) {
+                        console.error('Error loading settings:', error);
+                        alert('Invalid settings file');
+                      }
+                    };
+                    reader.readAsText(file);
+                  }
+                }}
+                className="text-sm"
+              />
+              <p className="text-xs text-slate-500 mt-1">Load saved Kit settings (.json)</p>
+            </div>
+          </div>
+        </div>
 
         {/* Export Settings Section */}
         <div className="space-y-4 pb-6">
