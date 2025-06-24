@@ -206,18 +206,15 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
         <h3 className="text-sm font-semibold text-slate-900 mb-4">Business Card</h3>
         <div className="bg-white border-2 border-slate-200 rounded-lg p-4 text-xs shadow-sm">
           <div className="text-center">
-            <div className="flex items-center space-x-2 mb-3 justify-center">
+            <div className="mb-3">
               <div 
-                className="w-6 h-6 rounded flex items-center justify-center"
+                className="w-8 h-8 rounded flex items-center justify-center mx-auto mb-2"
                 style={getBackgroundStyle()}
               >
                 <span style={getLogoStyle('small')}>
-                  {getTextForSize(24, settings)}
+                  {getTextForSize(32, settings)}
                 </span>
               </div>
-              <span style={getLogoStyle('medium')} className="font-bold">
-                {getTextForSize(64, settings)}
-              </span>
             </div>
             <div className="text-slate-600 space-y-1">
               <div>John Smith</div>
