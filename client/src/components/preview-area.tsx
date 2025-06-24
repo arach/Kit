@@ -35,9 +35,12 @@ function getTextForSize(size: number, settings: IconMakerSettings): string {
     return settings.text;
   }
 
-  if (size <= 32) {
+  const smallMax = settings.textBreakpoints.smallMax || 48;
+  const mediumMax = settings.textBreakpoints.mediumMax || 128;
+
+  if (size <= smallMax) {
     return settings.textBreakpoints.smallText || getShortText(settings.text);
-  } else if (size <= 128) {
+  } else if (size <= mediumMax) {
     return settings.textBreakpoints.mediumText || getShortText(settings.text);
   } else {
     return settings.textBreakpoints.largeText || settings.text;

@@ -18,6 +18,13 @@ interface Theme {
   strokeEnabled: boolean;
 }
 
+interface ColorCombination {
+  name: string;
+  backgroundColor: string;
+  textColor: string;
+  description: string;
+}
+
 const colorPalettes: ColorPalette[] = [
   {
     name: "Neutrals",
@@ -43,6 +50,37 @@ const colorPalettes: ColorPalette[] = [
     name: "Oranges",
     colors: ["#fff7ed", "#fed7aa", "#fb923c", "#ea580c", "#c2410c", "#9a3412"]
   }
+];
+
+const colorCombinations: ColorCombination[] = [
+  // Light backgrounds with dark text
+  { name: "Pure Light", backgroundColor: "#ffffff", textColor: "#000000", description: "Classic contrast" },
+  { name: "Soft Light", backgroundColor: "#f8fafc", textColor: "#1e293b", description: "Gentle on eyes" },
+  { name: "Warm Light", backgroundColor: "#fef7f0", textColor: "#7c2d12", description: "Warm neutrals" },
+  
+  // Dark backgrounds with light text
+  { name: "Pure Dark", backgroundColor: "#000000", textColor: "#ffffff", description: "Maximum contrast" },
+  { name: "Soft Dark", backgroundColor: "#1e293b", textColor: "#f1f5f9", description: "Modern dark" },
+  { name: "Cool Dark", backgroundColor: "#0f172a", textColor: "#e2e8f0", description: "Professional" },
+  
+  // Brand colors
+  { name: "Ocean Blue", backgroundColor: "#1e40af", textColor: "#ffffff", description: "Trust & stability" },
+  { name: "Forest Green", backgroundColor: "#059669", textColor: "#ffffff", description: "Growth & nature" },
+  { name: "Royal Purple", backgroundColor: "#7c3aed", textColor: "#ffffff", description: "Luxury & creativity" },
+  { name: "Sunset Orange", backgroundColor: "#ea580c", textColor: "#ffffff", description: "Energy & warmth" },
+  { name: "Ruby Red", backgroundColor: "#dc2626", textColor: "#ffffff", description: "Bold & passionate" },
+  
+  // Subtle combinations
+  { name: "Sage", backgroundColor: "#f0f9f0", textColor: "#15803d", description: "Natural & calm" },
+  { name: "Sky", backgroundColor: "#eff6ff", textColor: "#1e40af", description: "Open & fresh" },
+  { name: "Lavender", backgroundColor: "#faf5ff", textColor: "#7c3aed", description: "Elegant & soft" },
+  { name: "Peach", backgroundColor: "#fff7ed", textColor: "#c2410c", description: "Friendly & approachable" },
+  
+  // High contrast pairs
+  { name: "Electric", backgroundColor: "#facc15", textColor: "#000000", description: "High visibility" },
+  { name: "Mint", backgroundColor: "#10b981", textColor: "#ffffff", description: "Fresh & modern" },
+  { name: "Coral", backgroundColor: "#f472b6", textColor: "#ffffff", description: "Vibrant & playful" },
+  { name: "Indigo", backgroundColor: "#4f46e5", textColor: "#ffffff", description: "Deep & sophisticated" },
 ];
 
 const themes: Theme[] = [
@@ -133,6 +171,14 @@ export function ColorPresets({ onApplyPreset }: ColorPresetsProps) {
     }
   };
 
+  const handleCombinationClick = (combination: ColorCombination) => {
+    onApplyPreset({
+      backgroundColor: combination.backgroundColor,
+      textColor: combination.textColor,
+      backgroundType: "solid"
+    });
+  };
+
   const handleThemeClick = (theme: Theme) => {
     onApplyPreset({
       backgroundColor: theme.backgroundColor,
@@ -152,12 +198,47 @@ export function ColorPresets({ onApplyPreset }: ColorPresetsProps) {
         Colors & Themes
       </h3>
       
-      <Tabs defaultValue="themes" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs defaultValue="combinations" className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="combinations">Combos</TabsTrigger>
           <TabsTrigger value="themes">Themes</TabsTrigger>
-          <TabsTrigger value="palettes">Palettes</TabsTrigger>
+          <TabsTrigger value="palettes">Colors</TabsTrigger>
         </TabsList>
         
+        <TabsContent value="combinations" className="space-y-3 mt-4">
+          <div className="grid grid-cols-1 gap-2">
+            {colorCombinations.map((combination) => (
+              <Button
+                key={combination.name}
+                variant="outline"
+                onClick={() => handleCombinationClick(combination)}
+                className="h-auto p-3 flex items-center space-x-3 hover:border-primary justify-start"
+              >
+                {/* Color Preview */}
+                <div className="flex items-center space-x-1">
+                  <div
+                    className="w-4 h-4 rounded border"
+                    style={{ backgroundColor: combination.backgroundColor }}
+                  />
+                  <div
+                    className="w-4 h-4 rounded border"
+                    style={{ backgroundColor: combination.textColor }}
+                  />
+                </div>
+                
+                <div className="text-left flex-1 min-w-0">
+                  <div className="text-xs font-medium text-slate-900">
+                    {combination.name}
+                  </div>
+                  <div className="text-xs text-slate-500 truncate">
+                    {combination.description}
+                  </div>
+                </div>
+              </Button>
+            ))}
+          </div>
+        </TabsContent>
+
         <TabsContent value="themes" className="space-y-3 mt-4">
           <div className="grid grid-cols-2 gap-2">
             {themes.map((theme) => (

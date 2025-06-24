@@ -32,7 +32,9 @@ const defaultSettings: IconMakerSettings = {
     enabled: false,
     smallText: "S",
     mediumText: "SC",
-    largeText: "Scout"
+    largeText: "Scout",
+    smallMax: 48,    // Tailwind sm: 640px -> scaled to icon context
+    mediumMax: 128   // Between Tailwind md-lg -> scaled to icon context
   },
   exportFormats: {
     ios: true,

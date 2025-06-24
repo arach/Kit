@@ -22,9 +22,11 @@ export interface ExportFormats {
 
 export interface TextBreakpoints {
   enabled: boolean;
-  smallText: string;    // For sizes < 64px
-  mediumText: string;   // For sizes 64-128px
-  largeText: string;    // For sizes > 128px
+  smallText: string;    // For sizes <= smallMax
+  mediumText: string;   // For sizes <= mediumMax
+  largeText: string;    // For sizes > mediumMax
+  smallMax: number;     // Default: 48px (Tailwind sm breakpoint)
+  mediumMax: number;    // Default: 128px (between Tailwind md-lg)
 }
 
 export interface IconMakerSettings {

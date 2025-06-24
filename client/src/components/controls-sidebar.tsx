@@ -434,62 +434,152 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
             </div>
 
             {settings.textBreakpoints?.enabled && (
-              <div className="space-y-3 pl-6 border-l-2 border-slate-200">
-                <div>
-                  <label className="block text-xs font-medium text-slate-700 mb-1">
-                    Small (16-32px)
-                  </label>
-                  <Input
-                    value={settings.textBreakpoints?.smallText || "S"}
-                    onChange={(e) => 
-                      onSettingsChange({
-                        textBreakpoints: {
-                          ...(settings.textBreakpoints || { enabled: true, mediumText: "SC", largeText: settings.text }),
-                          smallText: e.target.value
-                        }
-                      })
-                    }
-                    placeholder="S"
-                    className="text-sm"
-                  />
+              <div className="space-y-4 pl-6 border-l-2 border-slate-200">
+                {/* Breakpoint Configuration */}
+                <div className="space-y-3">
+                  <h4 className="text-xs font-medium text-slate-700 uppercase tracking-wide">Breakpoints</h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs text-slate-600 mb-1">Small ≤</label>
+                      <div className="flex items-center space-x-1">
+                        <Input
+                          type="number"
+                          value={settings.textBreakpoints?.smallMax || 48}
+                          onChange={(e) => 
+                            onSettingsChange({
+                              textBreakpoints: {
+                                ...(settings.textBreakpoints || { enabled: true, smallText: "S", mediumText: "SC", largeText: settings.text, mediumMax: 128 }),
+                                smallMax: parseInt(e.target.value) || 48
+                              }
+                            })
+                          }
+                          className="text-xs w-16"
+                          min="8"
+                          max="256"
+                        />
+                        <span className="text-xs text-slate-500">px</span>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-xs text-slate-600 mb-1">Medium ≤</label>
+                      <div className="flex items-center space-x-1">
+                        <Input
+                          type="number"
+                          value={settings.textBreakpoints?.mediumMax || 128}
+                          onChange={(e) => 
+                            onSettingsChange({
+                              textBreakpoints: {
+                                ...(settings.textBreakpoints || { enabled: true, smallText: "S", mediumText: "SC", largeText: settings.text, smallMax: 48 }),
+                                mediumMax: parseInt(e.target.value) || 128
+                              }
+                            })
+                          }
+                          className="text-xs w-16"
+                          min="16"
+                          max="512"
+                        />
+                        <span className="text-xs text-slate-500">px</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                
-                <div>
-                  <label className="block text-xs font-medium text-slate-700 mb-1">
-                    Medium (64-128px)
-                  </label>
-                  <Input
-                    value={settings.textBreakpoints?.mediumText || "SC"}
-                    onChange={(e) => 
-                      onSettingsChange({
-                        textBreakpoints: {
-                          ...(settings.textBreakpoints || { enabled: true, smallText: "S", largeText: settings.text }),
-                          mediumText: e.target.value
-                        }
-                      })
-                    }
-                    placeholder="SC"
-                    className="text-sm"
-                  />
+
+                {/* Text Configuration */}
+                <div className="space-y-3">
+                  <h4 className="text-xs font-medium text-slate-700 uppercase tracking-wide">Text Variations</h4>
+                  <div>
+                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                      Small (≤ {settings.textBreakpoints?.smallMax || 48}px)
+                    </label>
+                    <Input
+                      value={settings.textBreakpoints?.smallText || "S"}
+                      onChange={(e) => 
+                        onSettingsChange({
+                          textBreakpoints: {
+                            ...(settings.textBreakpoints || { enabled: true, mediumText: "SC", largeText: settings.text, smallMax: 48, mediumMax: 128 }),
+                            smallText: e.target.value
+                          }
+                        })
+                      }
+                      placeholder="S"
+                      className="text-sm"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                      Medium (≤ {settings.textBreakpoints?.mediumMax || 128}px)
+                    </label>
+                    <Input
+                      value={settings.textBreakpoints?.mediumText || "SC"}
+                      onChange={(e) => 
+                        onSettingsChange({
+                          textBreakpoints: {
+                            ...(settings.textBreakpoints || { enabled: true, smallText: "S", largeText: settings.text, smallMax: 48, mediumMax: 128 }),
+                            mediumText: e.target.value
+                          }
+                        })
+                      }
+                      placeholder="SC"
+                      className="text-sm"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                      Large (&gt; {settings.textBreakpoints?.mediumMax || 128}px)
+                    </label>
+                    <Input
+                      value={settings.textBreakpoints?.largeText || settings.text}
+                      onChange={(e) => 
+                        onSettingsChange({
+                          textBreakpoints: {
+                            ...(settings.textBreakpoints || { enabled: true, smallText: "S", mediumText: "SC", smallMax: 48, mediumMax: 128 }),
+                            largeText: e.target.value
+                          }
+                        })
+                      }
+                      placeholder="Scout"
+                      className="text-sm"
+                    />
+                  </div>
                 </div>
-                
-                <div>
-                  <label className="block text-xs font-medium text-slate-700 mb-1">
-                    Large (256px+)
-                  </label>
-                  <Input
-                    value={settings.textBreakpoints?.largeText || settings.text}
-                    onChange={(e) => 
-                      onSettingsChange({
+
+                {/* Quick Presets */}
+                <div className="space-y-2">
+                  <h4 className="text-xs font-medium text-slate-700 uppercase tracking-wide">Presets</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => onSettingsChange({
                         textBreakpoints: {
-                          ...(settings.textBreakpoints || { enabled: true, smallText: "S", mediumText: "SC" }),
-                          largeText: e.target.value
+                          ...(settings.textBreakpoints || {}),
+                          smallMax: 48,
+                          mediumMax: 128,
+                          enabled: true
                         }
-                      })
-                    }
-                    placeholder="Scout"
-                    className="text-sm"
-                  />
+                      })}
+                      className="text-xs"
+                    >
+                      Default
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => onSettingsChange({
+                        textBreakpoints: {
+                          ...(settings.textBreakpoints || {}),
+                          smallMax: 32,
+                          mediumMax: 96,
+                          enabled: true
+                        }
+                      })}
+                      className="text-xs"
+                    >
+                      Compact
+                    </Button>
+                  </div>
                 </div>
               </div>
             )}

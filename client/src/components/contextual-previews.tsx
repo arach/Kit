@@ -18,9 +18,12 @@ function getTextForSize(size: number, settings: IconMakerSettings): string {
     return settings.text;
   }
 
-  if (size <= 32) {
+  const smallMax = settings.textBreakpoints.smallMax || 48;
+  const mediumMax = settings.textBreakpoints.mediumMax || 128;
+
+  if (size <= smallMax) {
     return settings.textBreakpoints.smallText || getShortText(settings.text);
-  } else if (size <= 128) {
+  } else if (size <= mediumMax) {
     return settings.textBreakpoints.mediumText || getShortText(settings.text);
   } else {
     return settings.textBreakpoints.largeText || settings.text;
@@ -87,9 +90,7 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
                   {getTextForSize(32, settings)}
                 </span>
               </div>
-              <span style={getLogoStyle('medium')} className="font-semibold">
-                {settings.text}
-              </span>
+
             </div>
             <div className="text-xs text-slate-500 space-x-3">
               <span>Features</span>
@@ -101,7 +102,7 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
           {/* Hero Section */}
           <div className="text-center py-8">
             <h1 className="text-lg font-bold text-slate-900 mb-2">
-              Welcome to {settings.text}
+              Welcome to {getTextForSize(64, settings)}
             </h1>
             <p className="text-xs text-slate-600 mb-4">
               The ultimate solution for your business needs
@@ -140,9 +141,14 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
             {/* Main Content */}
             <div className="flex-1 pl-4">
               <div className="flex items-center justify-between mb-3">
-                <span style={getLogoStyle('medium')} className="font-semibold">
-                  {settings.text}
-                </span>
+                <div 
+                  className="w-6 h-6 rounded flex items-center justify-center text-xs"
+                  style={getBackgroundStyle()}
+                >
+                  <span style={getLogoStyle('small')}>
+                    {getTextForSize(24, settings)}
+                  </span>
+                </div>
                 <div className="w-6 h-6 bg-slate-700 rounded-full"></div>
               </div>
               <div className="space-y-2">
@@ -176,7 +182,7 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
                   {getTextForSize(48, settings)}
                 </span>
               </div>
-              <div className="text-xs truncate">{settings.text}</div>
+              <div className="text-xs truncate">{getTextForSize(48, settings)}</div>
             </div>
             
             {/* Other apps */}
@@ -206,13 +212,13 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
                   </span>
                 </div>
                 <span style={getLogoStyle('medium')} className="font-bold">
-                  {settings.text}
+                  {getTextForSize(64, settings)}
                 </span>
               </div>
               <div className="text-slate-600 space-y-1">
                 <div>John Smith</div>
                 <div>CEO & Founder</div>
-                <div>john@{settings.text.toLowerCase()}.com</div>
+                <div>john@{getTextForSize(64, settings).toLowerCase()}.com</div>
                 <div>+1 (555) 123-4567</div>
               </div>
             </div>
