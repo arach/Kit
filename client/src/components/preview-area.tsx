@@ -380,13 +380,12 @@ export function PreviewArea({ settings }: PreviewAreaProps) {
 
               {/* Wordmark in context (except watch) */}
               {selectedDevice !== 'watch' && (
-                <div className="text-center w-full">
+                <div className="text-center w-full flex flex-col items-center">
                   <h4 className="text-sm font-medium text-slate-700 mb-4">Brand Context</h4>
                   <div 
                     className="border border-slate-200 rounded-lg flex items-center justify-center p-4"
                     style={{
-                      width: '100%',
-                      maxWidth: selectedDevice === 'mobile' ? '280px' : '400px',
+                      width: selectedDevice === 'mobile' ? '280px' : '400px',
                       height: selectedDevice === 'mobile' ? '100px' : '120px',
                       ...getBackgroundStyle()
                     }}
