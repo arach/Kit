@@ -140,8 +140,10 @@ Changelog:
 - June 24, 2025. Fixed Google Fonts loading mechanism with proper weight formatting
 - June 24, 2025. Preloaded popular fonts (Silkscreen, Orbitron, Quantico) in HTML
 - June 24, 2025. Added responsive device previews (Desktop, Tablet, Mobile, Watch)
-- June 24, 2025. Implemented color palette presets (8 professional themes)
-- June 24, 2025. Created contextual brand previews (SaaS landing, app nav, mobile home, business card)
+- June 24, 2025. Implemented comprehensive theme system with background/text/stroke combinations
+- June 24, 2025. Added focused color palettes (Neutrals, Blues, Greens, etc.)
+- June 24, 2025. Created contextual brand previews for real-world usage scenarios
+- June 24, 2025. Streamlined theme picker to maintain focus on core icon generation
 ```
 
 ## User Preferences
@@ -149,4 +151,5 @@ Changelog:
 ```
 Preferred communication style: Simple, everyday language.
 Design preferences: Clean, no unnecessary gradients, clear iconography.
+Product focus: Keep Kit focused on icon/wordmark generation, avoid feature creep into full design platforms.
 ```

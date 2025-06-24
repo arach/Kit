@@ -1,71 +1,122 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IconMakerSettings } from "@/types/icon-maker";
 
-interface ColorPreset {
+interface ColorPalette {
+  name: string;
+  colors: string[];
+}
+
+interface Theme {
   name: string;
   description: string;
   backgroundColor: string;
   textColor: string;
+  strokeColor: string;
   backgroundType: "solid" | "gradient" | "none";
+  strokeEnabled: boolean;
 }
 
-const colorPresets: ColorPreset[] = [
+const colorPalettes: ColorPalette[] = [
+  {
+    name: "Neutrals",
+    colors: ["#ffffff", "#f8fafc", "#e2e8f0", "#64748b", "#334155", "#1e293b", "#000000"]
+  },
+  {
+    name: "Blues",
+    colors: ["#dbeafe", "#93c5fd", "#3b82f6", "#1d4ed8", "#1e3a8a", "#172554"]
+  },
+  {
+    name: "Greens",
+    colors: ["#dcfce7", "#86efac", "#22c55e", "#15803d", "#166534", "#14532d"]
+  },
+  {
+    name: "Purples",
+    colors: ["#f3e8ff", "#c4b5fd", "#8b5cf6", "#7c3aed", "#6d28d9", "#581c87"]
+  },
+  {
+    name: "Reds",
+    colors: ["#fef2f2", "#fca5a5", "#ef4444", "#dc2626", "#b91c1c", "#7f1d1d"]
+  },
+  {
+    name: "Oranges",
+    colors: ["#fff7ed", "#fed7aa", "#fb923c", "#ea580c", "#c2410c", "#9a3412"]
+  }
+];
+
+const themes: Theme[] = [
   {
     name: "Classic",
-    description: "Professional black on white",
+    description: "Timeless black on white",
     backgroundColor: "#ffffff",
     textColor: "#000000",
-    backgroundType: "solid"
+    strokeColor: "#64748b",
+    backgroundType: "solid",
+    strokeEnabled: false
   },
   {
     name: "Midnight",
     description: "Bold white on black",
     backgroundColor: "#000000",
     textColor: "#ffffff",
-    backgroundType: "solid"
+    strokeColor: "#64748b",
+    backgroundType: "solid",
+    strokeEnabled: false
   },
   {
-    name: "Ocean",
-    description: "Deep blue with white text",
+    name: "Ocean Pro",
+    description: "Professional blue with subtle stroke",
     backgroundColor: "#1e40af",
     textColor: "#ffffff",
-    backgroundType: "solid"
+    strokeColor: "#93c5fd",
+    backgroundType: "solid",
+    strokeEnabled: true
   },
   {
-    name: "Forest",
-    description: "Natural green palette",
+    name: "Forest Edge",
+    description: "Natural green with defined edges",
     backgroundColor: "#059669",
     textColor: "#ffffff",
-    backgroundType: "solid"
+    strokeColor: "#86efac",
+    backgroundType: "solid",
+    strokeEnabled: true
   },
   {
-    name: "Sunset",
-    description: "Warm orange gradient",
+    name: "Sunset Glow",
+    description: "Warm gradient with glow effect",
     backgroundColor: "#ea580c",
     textColor: "#ffffff",
-    backgroundType: "gradient"
+    strokeColor: "#fed7aa",
+    backgroundType: "gradient",
+    strokeEnabled: false
   },
   {
-    name: "Purple",
-    description: "Modern purple brand",
+    name: "Purple Luxe",
+    description: "Premium purple with gold stroke",
     backgroundColor: "#7c3aed",
     textColor: "#ffffff",
-    backgroundType: "solid"
+    strokeColor: "#fbbf24",
+    backgroundType: "solid",
+    strokeEnabled: true
   },
   {
-    name: "Rose",
-    description: "Elegant pink tone",
-    backgroundColor: "#e11d48",
-    textColor: "#ffffff",
-    backgroundType: "solid"
-  },
-  {
-    name: "Minimal",
-    description: "Transparent with dark text",
+    name: "Minimal Glass",
+    description: "Clean transparent with subtle outline",
     backgroundColor: "transparent",
     textColor: "#1f2937",
-    backgroundType: "none"
+    strokeColor: "#e2e8f0",
+    backgroundType: "none",
+    strokeEnabled: true
+  },
+  {
+    name: "High Contrast",
+    description: "Maximum readability design",
+    backgroundColor: "#000000",
+    textColor: "#ffffff",
+    strokeColor: "#000000",
+    backgroundType: "solid",
+    strokeEnabled: true
   }
 ];
 
@@ -74,50 +125,95 @@ interface ColorPresetsProps {
 }
 
 export function ColorPresets({ onApplyPreset }: ColorPresetsProps) {
-  const handlePresetClick = (preset: ColorPreset) => {
+  const handleColorClick = (color: string, type: 'background' | 'text') => {
+    if (type === 'background') {
+      onApplyPreset({ backgroundColor: color });
+    } else {
+      onApplyPreset({ textColor: color });
+    }
+  };
+
+  const handleThemeClick = (theme: Theme) => {
     onApplyPreset({
-      backgroundColor: preset.backgroundColor,
-      textColor: preset.textColor,
-      backgroundType: preset.backgroundType
+      backgroundColor: theme.backgroundColor,
+      textColor: theme.textColor,
+      backgroundType: theme.backgroundType,
+      textStroke: {
+        enabled: theme.strokeEnabled,
+        color: theme.strokeColor,
+        width: 2
+      }
     });
   };
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide">
-          Color Presets
-        </h3>
-      </div>
+      <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide">
+        Colors & Themes
+      </h3>
       
-      <div className="grid grid-cols-2 gap-3">
-        {colorPresets.map((preset) => (
-          <Button
-            key={preset.name}
-            variant="outline"
-            onClick={() => handlePresetClick(preset)}
-            className="h-auto p-3 flex flex-col items-start space-y-2 hover:border-primary"
-          >
-            <div className="flex items-center space-x-2 w-full">
-              <div
-                className="w-6 h-6 rounded border border-slate-200 flex-shrink-0"
-                style={{
-                  backgroundColor: preset.backgroundColor === "transparent" ? "#f8fafc" : preset.backgroundColor,
-                  border: preset.backgroundColor === "transparent" ? "2px dashed #cbd5e1" : undefined
-                }}
-              />
-              <div className="text-left flex-1 min-w-0">
-                <div className="text-xs font-medium text-slate-900 truncate">
-                  {preset.name}
+      <Tabs defaultValue="themes" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="themes">Themes</TabsTrigger>
+          <TabsTrigger value="palettes">Palettes</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="themes" className="space-y-3 mt-4">
+          <div className="grid grid-cols-2 gap-2">
+            {themes.map((theme) => (
+              <Button
+                key={theme.name}
+                variant="outline"
+                onClick={() => handleThemeClick(theme)}
+                className="h-auto p-2 flex flex-col items-center space-y-2 hover:border-primary"
+              >
+                {/* Theme Preview */}
+                <div className="flex items-center space-x-1">
+                  <div
+                    className="w-3 h-3 rounded border"
+                    style={{
+                      backgroundColor: theme.backgroundColor === "transparent" ? "#f8fafc" : theme.backgroundColor,
+                      border: theme.backgroundColor === "transparent" ? "1px dashed #cbd5e1" : `1px solid ${theme.strokeColor}`
+                    }}
+                  />
+                  <div
+                    className="w-3 h-3 rounded border"
+                    style={{
+                      backgroundColor: theme.textColor,
+                      border: theme.strokeEnabled ? `1px solid ${theme.strokeColor}` : '1px solid #e2e8f0'
+                    }}
+                  />
                 </div>
-                <div className="text-xs text-slate-500 truncate">
-                  {preset.description}
+                
+                <div className="text-center">
+                  <div className="text-xs font-medium text-slate-900">
+                    {theme.name}
+                  </div>
                 </div>
+              </Button>
+            ))}
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="palettes" className="space-y-3 mt-4">
+          {colorPalettes.map((palette) => (
+            <div key={palette.name} className="space-y-2">
+              <h4 className="text-xs font-medium text-slate-700">{palette.name}</h4>
+              <div className="grid grid-cols-6 gap-1">
+                {palette.colors.map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => handleColorClick(color, 'background')}
+                    className="w-full h-8 rounded border border-slate-200 hover:scale-105 transition-transform"
+                    style={{ backgroundColor: color }}
+                    title={`Apply ${color}`}
+                  />
+                ))}
               </div>
             </div>
-          </Button>
-        ))}
-      </div>
+          ))}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
