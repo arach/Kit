@@ -150,6 +150,11 @@ Changelog:
 - June 24, 2025. Simplified contextual previews to show just logos without redundant text
 - June 24, 2025. Added save/load functionality for settings as JSON files
 - June 24, 2025. Improved SaaS landing page content and business card layout centering
+- June 24, 2025. Enabled smart cutoffs by default for better out-of-box experience
+- June 24, 2025. Enhanced SaaS landing page with professional CTAs and improved buttons
+- June 24, 2025. Centered brand context preview for better visual hierarchy
+- June 24, 2025. Moved save/load settings next to export functionality for better discoverability
+- June 24, 2025. Added realistic Apple app icons to mobile preview (Safari, Messages, Mail)
 ```
 
 ## User Preferences

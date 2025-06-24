@@ -589,13 +589,14 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
         {/* Color Presets Section */}
         <ColorPresets onApplyPreset={onSettingsChange} />
 
-        {/* Save/Load Settings Section */}
+        {/* Export & Save Settings Section */}
         <div className="space-y-4 pb-6">
           <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide">
-            Save & Load
+            Export & Save
           </h3>
           
-          <div className="space-y-3">
+          {/* Save/Load Controls */}
+          <div className="grid grid-cols-2 gap-2">
             <Button
               variant="outline"
               onClick={() => {
@@ -610,13 +611,13 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
               }}
-              className="w-full text-sm"
+              className="text-xs"
             >
-              <Download className="h-4 w-4 mr-2" />
-              Save Settings
+              <Download className="h-3 w-3 mr-1" />
+              Save
             </Button>
             
-            <div>
+            <div className="relative">
               <Input
                 type="file"
                 accept=".json"
@@ -636,18 +637,13 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
                     reader.readAsText(file);
                   }
                 }}
-                className="text-sm"
+                className="absolute inset-0 opacity-0 cursor-pointer"
               />
-              <p className="text-xs text-slate-500 mt-1">Load saved Kit settings (.json)</p>
+              <Button variant="outline" className="w-full text-xs pointer-events-none">
+                Load
+              </Button>
             </div>
           </div>
-        </div>
-
-        {/* Export Settings Section */}
-        <div className="space-y-4 pb-6">
-          <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide">
-            Export Options
-          </h3>
           <div className="space-y-3">
             <Card className="bg-slate-50 p-4">
               <h4 className="text-sm font-medium text-slate-900 mb-3">Platform Formats</h4>

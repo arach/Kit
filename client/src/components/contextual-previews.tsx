@@ -107,12 +107,12 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
             <p className="text-xs text-slate-600 mb-4">
               Professional icon generation and brand asset creation for modern teams
             </p>
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-12 h-5 bg-blue-500 rounded text-white text-xs flex items-center justify-center">
-                Start Free
+            <div className="flex items-center justify-center space-x-3">
+              <div className="px-4 py-2 bg-blue-600 rounded-lg text-white text-xs font-medium hover:bg-blue-700">
+                Start Free Trial
               </div>
-              <div className="w-12 h-5 border border-slate-300 rounded text-slate-700 text-xs flex items-center justify-center">
-                Learn More
+              <div className="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-xs font-medium hover:bg-slate-50">
+                View Demo
               </div>
             </div>
           </div>
