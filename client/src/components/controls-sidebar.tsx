@@ -46,11 +46,18 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
   }, [fontSearchQuery]);
 
   useEffect(() => {
-    loadGoogleFont(settings.fontFamily, [settings.fontWeight]);
-  }, [settings.fontFamily, settings.fontWeight]);
+    // Load current font with multiple weights
+    loadGoogleFont(settings.fontFamily, [300, 400, 500, 600, 700, 800]);
+  }, [settings.fontFamily]);
 
-  const handleFontChange = (fontFamily: string) => {
+  const handleFontChange = async (fontFamily: string) => {
     onSettingsChange({ fontFamily });
+    // Load the font immediately when selected
+    try {
+      await loadGoogleFont(fontFamily, [300, 400, 500, 600, 700, 800]);
+    } catch (error) {
+      console.warn(`Failed to load font ${fontFamily}:`, error);
+    }
   };
 
   const handleBackgroundTypeChange = (type: "solid" | "gradient" | "none") => {

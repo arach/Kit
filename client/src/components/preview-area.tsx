@@ -123,8 +123,9 @@ function IconPreview({ title, size, settings, dimensions, borderRadius = "rounde
 
 export function PreviewArea({ settings }: PreviewAreaProps) {
   useEffect(() => {
-    loadGoogleFont(settings.fontFamily, [settings.fontWeight]);
-  }, [settings.fontFamily, settings.fontWeight]);
+    // Ensure font is loaded for preview
+    loadGoogleFont(settings.fontFamily, [300, 400, 500, 600, 700, 800]);
+  }, [settings.fontFamily]);
 
   const getWordmarkStyle = () => ({
     fontFamily: `'${settings.fontFamily}', sans-serif`,

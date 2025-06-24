@@ -165,8 +165,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         font.toLowerCase().includes(searchTerm)
       ).slice(0, 20);
 
+      // If no matches found and query is short, try partial matching
+      let finalFonts = filteredFonts;
+      if (filteredFonts.length === 0 && query.length >= 2) {
+        finalFonts = allFonts.filter(font => 
+          font.toLowerCase().startsWith(searchTerm.substring(0, 2))
+        ).slice(0, 10);
+      }
+
       res.json({ 
-        fonts: filteredFonts.length > 0 ? filteredFonts : allFonts.slice(0, 20),
+        fonts: finalFonts.length > 0 ? finalFonts : allFonts.slice(0, 20),
         source: allFonts.length > 1000 ? 'google_api' : 'fallback'
       });
     } catch (error) {

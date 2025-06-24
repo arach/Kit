@@ -137,6 +137,8 @@ Changelog:
 - June 24, 2025. Simplified Kit logo - removed gradient, made icon larger and clearer
 - June 24, 2025. Fixed font size slider to properly scale all preview elements
 - June 24, 2025. Added Google Fonts API search with 500+ fonts available
+- June 24, 2025. Fixed Google Fonts loading mechanism with proper weight formatting
+- June 24, 2025. Preloaded popular fonts (Silkscreen, Orbitron, Quantico) in HTML
 ```
 
 ## User Preferences

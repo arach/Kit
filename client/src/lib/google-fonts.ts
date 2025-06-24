@@ -201,7 +201,7 @@ export async function searchGoogleFonts(query: string): Promise<string[]> {
 
 export async function loadGoogleFont(
   fontFamily: string, 
-  weights: number[] = [400]
+  weights: number[] = [400, 600, 700]
 ): Promise<void> {
   // Check if font is already loaded
   const fontFaceSet = (document as any).fonts;
@@ -211,30 +211,56 @@ export async function loadGoogleFont(
     if (isLoaded) return;
   }
 
-  // Create font link
+  // Create font link with proper weight formatting
   const weightsStr = weights.join(';');
-  const fontUrl = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(' ', '+')}:wght@${weightsStr}&display=swap`;
+  const fontUrl = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}:wght@${weightsStr}&display=swap`;
   
   // Check if link already exists
-  const existingLink = document.querySelector(`link[href*="${fontFamily.replace(' ', '+')}"]`);
+  const existingLink = document.querySelector(`link[href*="${fontFamily.replace(/ /g, '+')}"]`);
   if (existingLink) return;
+
+  // Remove any existing font links for this family to avoid conflicts
+  const oldLinks = document.querySelectorAll(`link[href*="${fontFamily.replace(/ /g, '+')}"]`);
+  oldLinks.forEach(link => link.remove());
 
   // Create and append link element
   const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = fontUrl;
+  link.rel = 'preconnect';
+  link.href = 'https://fonts.googleapis.com';
   document.head.appendChild(link);
 
-  // Wait for font to load
+  const link2 = document.createElement('link');
+  link2.rel = 'preconnect';
+  link2.href = 'https://fonts.gstatic.com';
+  link2.crossOrigin = 'anonymous';
+  document.head.appendChild(link2);
+
+  const fontLink = document.createElement('link');
+  fontLink.rel = 'stylesheet';
+  fontLink.href = fontUrl;
+  document.head.appendChild(fontLink);
+
+  // Wait for font to load using the Font Loading API
   return new Promise((resolve) => {
-    link.onload = () => {
-      // Give browser time to parse the font
-      setTimeout(resolve, 100);
-    };
-    link.onerror = () => {
-      console.warn(`Failed to load font: ${fontFamily}`);
-      resolve();
-    };
+    if (fontFaceSet && fontFaceSet.load) {
+      const fontSpec = `${weights[0]} 16px "${fontFamily}"`;
+      fontFaceSet.load(fontSpec).then(() => {
+        console.log(`Successfully loaded font: ${fontFamily}`);
+        resolve();
+      }).catch(() => {
+        console.warn(`Failed to load font: ${fontFamily}`);
+        resolve();
+      });
+    } else {
+      // Fallback for browsers without Font Loading API
+      fontLink.onload = () => {
+        setTimeout(resolve, 200);
+      };
+      fontLink.onerror = () => {
+        console.warn(`Failed to load font: ${fontFamily}`);
+        resolve();
+      };
+    }
   });
 }
 
