@@ -59,7 +59,7 @@ async function generateIconBlob(
   return canvasToBlob(canvas, "image/png");
 }
 
-async function generateSVG(settings: IconMakerSettings): Promise<string> {
+async function generateSVG(settings: IconMakerSettings, width: number = 200, height: number = 200): Promise<string> {
   const displayText = settings.text;
   const shortText = displayText.length > 10 ? 
     displayText.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase() : 

@@ -155,6 +155,9 @@ Changelog:
 - June 24, 2025. Centered brand context preview for better visual hierarchy
 - June 24, 2025. Moved save/load settings next to export functionality for better discoverability
 - June 24, 2025. Added realistic Apple app icons to mobile preview (Safari, Messages, Mail)
+- June 24, 2025. Enhanced web export bundle with comprehensive logo variations (navigation, wordmarks, social media)
+- June 24, 2025. Fixed text sizing to ensure all treatments fit properly within containers
+- June 24, 2025. Added smart cutoffs support to export functions for appropriate text at each size
 ```
 
 ## User Preferences
