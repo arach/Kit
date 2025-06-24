@@ -592,7 +592,7 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
         {/* Export & Save Settings Section */}
         <div className="space-y-4 pb-6">
           <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide">
-            Export & Save
+            Export Icons & Save Settings
           </h3>
           
           {/* Save/Load Controls */}
