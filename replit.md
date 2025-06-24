@@ -139,6 +139,9 @@ Changelog:
 - June 24, 2025. Added Google Fonts API search with 500+ fonts available
 - June 24, 2025. Fixed Google Fonts loading mechanism with proper weight formatting
 - June 24, 2025. Preloaded popular fonts (Silkscreen, Orbitron, Quantico) in HTML
+- June 24, 2025. Added responsive device previews (Desktop, Tablet, Mobile, Watch)
+- June 24, 2025. Implemented color palette presets (8 professional themes)
+- June 24, 2025. Created contextual brand previews (SaaS landing, app nav, mobile home, business card)
 ```
 
 ## User Preferences

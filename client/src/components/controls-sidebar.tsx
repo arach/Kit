@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { Search } from "lucide-react";
 import { IconMakerSettings } from "@/types/icon-maker";
 import { loadGoogleFont, getAvailableFonts, searchGoogleFonts } from "@/lib/google-fonts";
+import { ColorPresets } from "@/components/color-presets";
 
 interface ControlsSidebarProps {
   settings: IconMakerSettings;
@@ -406,6 +407,9 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
             </div>
           </div>
         </div>
+
+        {/* Color Presets Section */}
+        <ColorPresets onApplyPreset={onSettingsChange} />
 
         {/* Export Settings Section */}
         <div className="space-y-4 pb-6">
