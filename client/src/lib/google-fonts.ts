@@ -10,7 +10,7 @@ const POPULAR_FONTS = [
   "Montserrat",
   "Poppins",
   "Inter",
-  "Sillscreen",
+  "Silkscreen",
   "Orbitron",
   "Quantico",
   "Playfair Display",
