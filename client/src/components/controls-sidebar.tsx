@@ -418,11 +418,11 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="breakpoints-enabled"
-                checked={settings.textBreakpoints.enabled}
+                checked={settings.textBreakpoints?.enabled || false}
                 onCheckedChange={(checked) => 
                   onSettingsChange({
                     textBreakpoints: {
-                      ...settings.textBreakpoints,
+                      ...(settings.textBreakpoints || { smallText: "S", mediumText: "SC", largeText: settings.text }),
                       enabled: checked as boolean
                     }
                   })
@@ -433,18 +433,18 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
               </label>
             </div>
 
-            {settings.textBreakpoints.enabled && (
+            {settings.textBreakpoints?.enabled && (
               <div className="space-y-3 pl-6 border-l-2 border-slate-200">
                 <div>
                   <label className="block text-xs font-medium text-slate-700 mb-1">
                     Small (16-32px)
                   </label>
                   <Input
-                    value={settings.textBreakpoints.smallText}
+                    value={settings.textBreakpoints?.smallText || "S"}
                     onChange={(e) => 
                       onSettingsChange({
                         textBreakpoints: {
-                          ...settings.textBreakpoints,
+                          ...(settings.textBreakpoints || { enabled: true, mediumText: "SC", largeText: settings.text }),
                           smallText: e.target.value
                         }
                       })
@@ -459,11 +459,11 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
                     Medium (64-128px)
                   </label>
                   <Input
-                    value={settings.textBreakpoints.mediumText}
+                    value={settings.textBreakpoints?.mediumText || "SC"}
                     onChange={(e) => 
                       onSettingsChange({
                         textBreakpoints: {
-                          ...settings.textBreakpoints,
+                          ...(settings.textBreakpoints || { enabled: true, smallText: "S", largeText: settings.text }),
                           mediumText: e.target.value
                         }
                       })
@@ -478,11 +478,11 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
                     Large (256px+)
                   </label>
                   <Input
-                    value={settings.textBreakpoints.largeText}
+                    value={settings.textBreakpoints?.largeText || settings.text}
                     onChange={(e) => 
                       onSettingsChange({
                         textBreakpoints: {
-                          ...settings.textBreakpoints,
+                          ...(settings.textBreakpoints || { enabled: true, smallText: "S", mediumText: "SC" }),
                           largeText: e.target.value
                         }
                       })

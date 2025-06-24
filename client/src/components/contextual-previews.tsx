@@ -14,7 +14,7 @@ function getShortText(text: string): string {
 }
 
 function getTextForSize(size: number, settings: IconMakerSettings): string {
-  if (!settings.textBreakpoints.enabled) {
+  if (!settings.textBreakpoints?.enabled) {
     return settings.text;
   }
 

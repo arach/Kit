@@ -28,6 +28,12 @@ const defaultSettings: IconMakerSettings = {
     width: 1,
     color: "#000000"
   },
+  textBreakpoints: {
+    enabled: false,
+    smallText: "S",
+    mediumText: "SC",
+    largeText: "Scout"
+  },
   exportFormats: {
     ios: true,
     android: true,
