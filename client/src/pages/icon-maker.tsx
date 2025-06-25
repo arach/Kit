@@ -96,7 +96,8 @@ export default function IconMaker() {
   // Load Google Font when font family changes
   useEffect(() => {
     if (settings.fontFamily && settings.fontFamily !== 'Helvetica' && settings.fontFamily !== 'Arial') {
-      loadGoogleFont(settings.fontFamily, [settings.fontWeight]);
+      const fontWeight = typeof settings.fontWeight === 'string' ? parseInt(settings.fontWeight) : settings.fontWeight;
+      loadGoogleFont(settings.fontFamily, [fontWeight]);
     }
   }, [settings.fontFamily, settings.fontWeight]);
 
