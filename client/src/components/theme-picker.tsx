@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { 
@@ -457,6 +457,13 @@ interface ThemePreviewProps {
 function ThemePreview({ theme, size = 64, onClick, isSelected }: ThemePreviewProps) {
   const text = theme.textBreakpoints?.smallText || "S";
   
+  // Preload font for this theme preview
+  useEffect(() => {
+    if (theme.fontFamily && theme.fontFamily !== 'Helvetica' && theme.fontFamily !== 'Arial' && theme.fontFamily !== 'SF Pro Display') {
+      loadGoogleFont(theme.fontFamily, [theme.fontWeight]);
+    }
+  }, [theme.fontFamily, theme.fontWeight]);
+  
   return (
     <div 
       className={`relative cursor-pointer rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 group ${
@@ -488,7 +495,7 @@ function ThemePreview({ theme, size = 64, onClick, isSelected }: ThemePreviewPro
               : 'none',
             WebkitTextStroke: theme.textStroke.enabled 
               ? `${theme.textStroke.width}px ${theme.textStroke.color}` 
-              : 'none'
+              : 'initial'
           }}
         >
           {text}

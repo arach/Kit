@@ -106,7 +106,12 @@ export default function IconMaker() {
   };
 
   const handleThemeChange = (themeUpdates: Partial<IconMakerSettings>) => {
-    updateSettings(themeUpdates);
+    // Complete reset of all properties to prevent carryover effects
+    const completeTheme: IconMakerSettings = {
+      ...defaultSettings, // Start with clean defaults
+      ...themeUpdates,    // Apply theme updates
+    };
+    setSettings(completeTheme);
   };
 
   const handleExportAll = () => {
