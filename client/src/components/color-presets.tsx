@@ -773,14 +773,15 @@ export function ColorPresets({ onApplyPreset }: ColorPresetsProps) {
 
   const handleThemeClick = (theme: Theme) => {
     onApplyPreset({
+      fontFamily: theme.fontFamily,
+      fontSize: theme.fontSize,
+      fontWeight: theme.fontWeight,
       backgroundColor: theme.backgroundColor,
       textColor: theme.textColor,
       backgroundType: theme.backgroundType,
-      textStroke: {
-        enabled: theme.strokeEnabled,
-        color: theme.strokeColor,
-        width: 2
-      }
+      textStroke: theme.textStroke,
+      dropShadow: theme.dropShadow,
+      textBreakpoints: theme.textBreakpoints
     });
   };
 
@@ -846,14 +847,14 @@ export function ColorPresets({ onApplyPreset }: ColorPresetsProps) {
                     className="w-3 h-3 rounded border"
                     style={{
                       backgroundColor: theme.backgroundColor === "transparent" ? "#f8fafc" : theme.backgroundColor,
-                      border: theme.backgroundColor === "transparent" ? "1px dashed #cbd5e1" : `1px solid ${theme.strokeColor}`
+                      border: theme.backgroundColor === "transparent" ? "1px dashed #cbd5e1" : "1px solid #e2e8f0"
                     }}
                   />
                   <div
                     className="w-3 h-3 rounded border"
                     style={{
                       backgroundColor: theme.textColor,
-                      border: theme.strokeEnabled ? `1px solid ${theme.strokeColor}` : '1px solid #e2e8f0'
+                      border: theme.textStroke.enabled ? `1px solid ${theme.textStroke.color}` : '1px solid #e2e8f0'
                     }}
                   />
                 </div>
@@ -861,6 +862,9 @@ export function ColorPresets({ onApplyPreset }: ColorPresetsProps) {
                 <div className="text-center">
                   <div className="text-xs font-medium text-slate-900">
                     {theme.name}
+                  </div>
+                  <div className="text-xs text-slate-500 truncate">
+                    {theme.description}
                   </div>
                 </div>
               </Button>
