@@ -199,68 +199,104 @@ export async function searchGoogleFonts(query: string): Promise<string[]> {
   return filteredFonts.length > 0 ? filteredFonts.slice(0, 20) : POPULAR_FONTS;
 }
 
+// Developer fonts that should be preloaded for instant access
+const DEVELOPER_FONTS = [
+  'Fira Code',
+  'JetBrains Mono', 
+  'Source Code Pro',
+  'Space Mono',
+  'Courier Prime',
+  'DM Mono',
+  'Roboto Mono',
+  'Audiowide',
+  'Electrolize',
+  'Major Mono Display',
+  'Bungee',
+  'Silkscreen',
+  'Orbitron'
+];
+
+// Preload all developer fonts to ensure instant theme switching
+export async function preloadDeveloperFonts(): Promise<void> {
+  const promises = DEVELOPER_FONTS.map(font => loadGoogleFont(font, [400, 500, 600, 700]));
+  await Promise.allSettled(promises); // Use allSettled to continue even if some fonts fail
+}
+
 export async function loadGoogleFont(
   fontFamily: string, 
   weights: number[] = [400, 600, 700]
 ): Promise<void> {
-  // Check if font is already loaded
-  const fontFaceSet = (document as any).fonts;
-  if (fontFaceSet) {
-    const fontFace = `${weights[0]} 16px "${fontFamily}"`;
-    const isLoaded = fontFaceSet.check(fontFace);
-    if (isLoaded) return;
-  }
-
-  // Create font link with proper weight formatting
-  const weightsStr = weights.join(';');
-  const fontUrl = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}:wght@${weightsStr}&display=swap`;
-  
-  // Check if link already exists
-  const existingLink = document.querySelector(`link[href*="${fontFamily.replace(/ /g, '+')}"]`);
-  if (existingLink) return;
-
-  // Remove any existing font links for this family to avoid conflicts
-  const oldLinks = document.querySelectorAll(`link[href*="${fontFamily.replace(/ /g, '+')}"]`);
-  oldLinks.forEach(link => link.remove());
-
-  // Create and append link element
-  const link = document.createElement('link');
-  link.rel = 'preconnect';
-  link.href = 'https://fonts.googleapis.com';
-  document.head.appendChild(link);
-
-  const link2 = document.createElement('link');
-  link2.rel = 'preconnect';
-  link2.href = 'https://fonts.gstatic.com';
-  link2.crossOrigin = 'anonymous';
-  document.head.appendChild(link2);
-
-  const fontLink = document.createElement('link');
-  fontLink.rel = 'stylesheet';
-  fontLink.href = fontUrl;
-  document.head.appendChild(fontLink);
-
-  // Wait for font to load using the Font Loading API
-  return new Promise((resolve) => {
-    if (fontFaceSet && fontFaceSet.load) {
-      const fontSpec = `${weights[0]} 16px "${fontFamily}"`;
-      fontFaceSet.load(fontSpec).then(() => {
-        console.log(`Successfully loaded font: ${fontFamily}`);
-        resolve();
-      }).catch(() => {
-        console.warn(`Failed to load font: ${fontFamily}`);
-        resolve();
-      });
-    } else {
-      // Fallback for browsers without Font Loading API
-      fontLink.onload = () => {
-        setTimeout(resolve, 200);
-      };
-      fontLink.onerror = () => {
-        console.warn(`Failed to load font: ${fontFamily}`);
-        resolve();
-      };
+  try {
+    // Skip system fonts
+    if (['Helvetica', 'Arial', 'Times New Roman', 'Georgia', 'Verdana'].includes(fontFamily)) {
+      return;
     }
+
+    // Check if font is already loaded
+    const fontFaceSet = (document as any).fonts;
+    if (fontFaceSet) {
+      const fontFace = `${weights[0]} 16px "${fontFamily}"`;
+      const isLoaded = fontFaceSet.check(fontFace);
+      if (isLoaded) return;
+    }
+
+    // Create font link with proper weight formatting
+    const weightsStr = weights.join(';');
+    const fontUrl = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}:wght@${weightsStr}&display=swap`;
+    
+    // Check if link already exists
+    const existingLink = document.querySelector(`link[href*="${fontFamily.replace(/ /g, '+')}"]`);
+    if (existingLink) {
+      // Wait for existing font to load
+      await waitForFontLoad(fontFamily, weights[0]);
+      return;
+    }
+
+    // Create font link element
+    const fontLink = document.createElement('link');
+    fontLink.rel = 'stylesheet';
+    fontLink.href = fontUrl;
+    fontLink.onload = () => console.log(`Font stylesheet loaded: ${fontFamily}`);
+    fontLink.onerror = () => console.warn(`Failed to load font stylesheet: ${fontFamily}`);
+    document.head.appendChild(fontLink);
+
+    // Wait for font to actually load and be ready
+    await waitForFontLoad(fontFamily, weights[0]);
+    
+  } catch (error) {
+    console.warn(`Error loading font ${fontFamily}:`, error);
+  }
+}
+
+// Helper function to wait for font to be ready
+async function waitForFontLoad(fontFamily: string, weight: number): Promise<void> {
+  return new Promise((resolve) => {
+    const fontFaceSet = (document as any).fonts;
+    if (!fontFaceSet) {
+      // Fallback timeout for older browsers
+      setTimeout(resolve, 1000);
+      return;
+    }
+
+    const fontSpec = `${weight} 16px "${fontFamily}"`;
+    let attempts = 0;
+    const maxAttempts = 50; // 5 seconds max
+    
+    const checkFont = () => {
+      attempts++;
+      if (fontFaceSet.check(fontSpec) || attempts >= maxAttempts) {
+        if (attempts >= maxAttempts) {
+          console.warn(`Font loading timeout: ${fontFamily}`);
+        } else {
+          console.log(`Font ready: ${fontFamily} after ${attempts * 100}ms`);
+        }
+        resolve();
+      } else {
+        setTimeout(checkFont, 100);
+      }
+    };
+    
+    checkFont();
   });
 }
 

@@ -9,7 +9,7 @@ import { ThemePicker } from "@/components/theme-picker";
 import { ThemeSummaryCard } from "@/components/theme-summary-card";
 import { IconMakerSettings } from "@/types/icon-maker";
 import { getSettingsFromUrl, updateUrlWithSettings } from "@/lib/url-encoding";
-import { loadGoogleFont } from "@/lib/google-fonts";
+import { loadGoogleFont, preloadDeveloperFonts } from "@/lib/google-fonts";
 
 // Smart font size based on text length
 function getSmartFontSize(text: string): number {
@@ -60,6 +60,13 @@ const defaultSettings: IconMakerSettings = {
 
 export default function IconMaker() {
   const [settings, setSettings] = useState<IconMakerSettings>(defaultSettings);
+
+  // Preload developer fonts on app initialization
+  useEffect(() => {
+    preloadDeveloperFonts().catch(error => 
+      console.warn('Failed to preload some developer fonts:', error)
+    );
+  }, []);
 
   // Load settings from URL or localStorage on mount
   useEffect(() => {
