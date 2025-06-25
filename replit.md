@@ -184,6 +184,12 @@ Changelog:
 - June 25, 2025. Added all theme fonts to HTML preload (Cormorant Garamond, Oswald, Nunito Sans, Playfair Display)
 - June 25, 2025. Enhanced theme handler with complete settings reset to prevent race conditions
 - June 25, 2025. Fixed duplicate theme names and ensured unique theme identifiers throughout picker
+- June 25, 2025. Fixed zoom functionality in preview area with proper CSS transform scaling
+- June 25, 2025. Added active theme highlighting in theme picker button to show current selection
+- June 25, 2025. Completely redesigned theme collection for developer/hacker audience
+- June 25, 2025. Replaced design fonts with developer-focused fonts (monospace, terminal, display)
+- June 25, 2025. Added 12 new developer themes: Terminal Green, Code Editor, Space Terminal, Console Pro, Matrix Code, Tech Display, Electric Mono, Giant Display, Block Display, Electric Grid
+- June 25, 2025. Preloaded developer fonts: Fira Code, JetBrains Mono, Source Code Pro, Space Mono, Courier Prime, DM Mono, Roboto Mono, Audiowide, Electrolize, Major Mono Display, Bungee
 ```
 
 ## User Preferences
