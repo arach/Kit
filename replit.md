@@ -190,6 +190,9 @@ Changelog:
 - June 25, 2025. Replaced design fonts with developer-focused fonts (monospace, terminal, display)
 - June 25, 2025. Added 12 new developer themes: Terminal Green, Code Editor, Space Terminal, Console Pro, Matrix Code, Tech Display, Electric Mono, Giant Display, Block Display, Electric Grid
 - June 25, 2025. Preloaded developer fonts: Fira Code, JetBrains Mono, Source Code Pro, Space Mono, Courier Prime, DM Mono, Roboto Mono, Audiowide, Electrolize, Major Mono Display, Bungee
+- June 25, 2025. Restored color palette to main sidebar while keeping theme picker in top-right modal
+- June 25, 2025. Enhanced theme diversity with colorful backgrounds: blue (Code Editor), green (Console Pro), purple (Tech Display), magenta (Electric Mono), cyan (Giant Display), orange (Electric Grid)
+- June 25, 2025. Verified all developer theme fonts are properly loaded and selected when themes are applied
 ```
 
 ## User Preferences

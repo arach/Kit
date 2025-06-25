@@ -193,31 +193,31 @@ const THEMES: Theme[] = [
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
-  // Electric Mono - Roboto Mono style
+  // Electric Mono - Roboto Mono with vibrant magenta
   {
     name: "Electric Mono",
     fontFamily: "Roboto Mono",
     fontSize: 42,
     fontWeight: 600,
-    backgroundColor: "#1a1a1a",
-    textColor: "#ff0080",
-    backgroundType: "solid",
+    backgroundColor: "#ec4899",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
     textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 8, opacity: 0.7, color: "#ff0080" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 4, blur: 12, opacity: 0.4, color: "#be185d" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
-  // Giant Display - Major Mono style
+  // Giant Display - Major Mono with cyan background
   {
     name: "Giant Display",
     fontFamily: "Major Mono Display",
     fontSize: 38,
     fontWeight: 400,
-    backgroundColor: "#000000",
+    backgroundColor: "#0891b2",
     textColor: "#ffffff",
     backgroundType: "solid",
-    textStroke: { enabled: true, width: 2, color: "#ff4500" },
-    dropShadow: { enabled: true, offsetX: 4, offsetY: 4, blur: 0, opacity: 1, color: "#ff4500" },
+    textStroke: { enabled: true, width: 2, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 3, offsetY: 3, blur: 6, opacity: 0.4, color: "#0e7490" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
