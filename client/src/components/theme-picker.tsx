@@ -109,17 +109,17 @@ const THEMES: Theme[] = [
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
-  // Code Editor - JetBrains style
+  // Code Editor - JetBrains style with blue accent
   {
     name: "Code Editor",
     fontFamily: "JetBrains Mono",
     fontSize: 40,
     fontWeight: 600,
-    backgroundColor: "#2b2b2b",
-    textColor: "#a9b7c6",
+    backgroundColor: "#1e3a8a",
+    textColor: "#e0e7ff",
     backgroundType: "solid",
     textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 2, blur: 6, opacity: 0.3, color: "#1e40af" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
@@ -137,17 +137,17 @@ const THEMES: Theme[] = [
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
-  // Console Pro - Source Code style
+  // Console Pro - Source Code style with green theme
   {
     name: "Console Pro",
     fontFamily: "Source Code Pro",
     fontSize: 42,
     fontWeight: 700,
-    backgroundColor: "#1e1e1e",
-    textColor: "#d4d4d4",
+    backgroundColor: "#059669",
+    textColor: "#ffffff",
     backgroundType: "solid",
     textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 2, blur: 6, opacity: 0.3, color: "#047857" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
@@ -165,17 +165,17 @@ const THEMES: Theme[] = [
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
-  // Tech Display - Futuristic UI
+  // Tech Display - Futuristic purple theme
   {
     name: "Tech Display",
     fontFamily: "Audiowide",
     fontSize: 46,
     fontWeight: 400,
-    backgroundColor: "#0a0a0a",
-    textColor: "#00d4ff",
-    backgroundType: "solid",
-    textStroke: { enabled: true, width: 1, color: "#00d4ff" },
-    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 12, opacity: 0.8, color: "#00d4ff" },
+    backgroundColor: "#7c3aed",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 4, blur: 16, opacity: 0.5, color: "#5b21b6" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
@@ -235,17 +235,17 @@ const THEMES: Theme[] = [
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
-  // Electric Grid - Electrolize style
+  // Electric Grid - Electrolize style with orange background
   {
     name: "Electric Grid",
     fontFamily: "Electrolize",
     fontSize: 44,
     fontWeight: 400,
-    backgroundColor: "#1a1a1a",
-    textColor: "#00d4ff",
-    backgroundType: "solid",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 12, opacity: 0.8, color: "#00d4ff" },
+    backgroundColor: "#ea580c",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: true, width: 2, color: "#dc2626" },
+    dropShadow: { enabled: true, offsetX: 3, offsetY: 5, blur: 12, opacity: 0.4, color: "#c2410c" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 

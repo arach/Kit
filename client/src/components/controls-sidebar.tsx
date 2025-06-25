@@ -13,6 +13,7 @@ import { loadGoogleFont, getAvailableFonts, searchGoogleFonts } from "@/lib/goog
 
 import { generateShareableUrl } from "@/lib/url-encoding";
 import { useToast } from "@/hooks/use-toast";
+import { ColorPresets } from "@/components/color-presets";
 
 interface ControlsSidebarProps {
   settings: IconMakerSettings;
@@ -336,6 +337,11 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Color Palette Section */}
+        <div className="space-y-4">
+          <ColorPresets onApplyPreset={onSettingsChange} />
         </div>
 
         {/* Text Effects Section */}
