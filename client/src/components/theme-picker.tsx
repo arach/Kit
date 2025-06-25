@@ -15,21 +15,18 @@ import { loadGoogleFont } from "@/lib/google-fonts";
 function createSmartBreakpoints(text: string) {
   const words = text.split(' ');
   if (words.length === 1) {
-    // Single word: first letter, first 2-3 letters, full word
+    // Single word: first letter, first letter only for medium, full word
     return {
       smallText: text.charAt(0).toUpperCase(),
-      mediumText: text.substring(0, Math.min(3, text.length)).toUpperCase(),
+      mediumText: text.charAt(0).toUpperCase(), // Just one letter for medium
       largeText: text
     };
   } else {
-    // Multiple words: initials, abbreviated, full
+    // Multiple words: initials, first initial only, full
     const initials = words.map(w => w.charAt(0)).join('').toUpperCase();
-    const abbreviated = words.length > 2 
-      ? words.slice(0, 2).map(w => w.substring(0, 2)).join('').toUpperCase()
-      : words.map(w => w.substring(0, 2)).join(' ');
     return {
       smallText: initials,
-      mediumText: abbreviated,
+      mediumText: words[0].charAt(0).toUpperCase(), // Just first letter for medium
       largeText: text
     };
   }

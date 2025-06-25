@@ -6,6 +6,7 @@ import { PreviewArea } from "@/components/preview-area";
 import { ExportPanel } from "@/components/export-panel";
 import { MediaKitLogo } from "@/components/media-kit-logo";
 import { ThemePicker } from "@/components/theme-picker";
+import { ThemeSummaryCard } from "@/components/theme-summary-card";
 import { IconMakerSettings } from "@/types/icon-maker";
 import { getSettingsFromUrl, updateUrlWithSettings } from "@/lib/url-encoding";
 import { loadGoogleFont } from "@/lib/google-fonts";
@@ -44,7 +45,7 @@ const defaultSettings: IconMakerSettings = {
   textBreakpoints: {
     enabled: true,
     smallText: "S",
-    mediumText: "SC",
+    mediumText: "S",  // Just one letter for medium
     largeText: "Scout",
     smallMax: 48,    // Tailwind sm: 640px -> scaled to icon context
     mediumMax: 128   // Between Tailwind md-lg -> scaled to icon context
@@ -153,6 +154,13 @@ export default function IconMaker() {
           onSettingsChange={updateSettings} 
         />
         <PreviewArea settings={settings} />
+        <div className="w-80 p-4 bg-white border-l border-slate-200 overflow-y-auto">
+          <ThemeSummaryCard 
+            settings={settings}
+            onSettingsChange={updateSettings}
+            currentTheme={currentTheme}
+          />
+        </div>
       </div>
 
       {showExportPanel && (
