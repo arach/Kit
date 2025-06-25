@@ -66,7 +66,7 @@ interface Theme {
   };
 }
 
-const themes: Theme[] = [
+const THEMES: Theme[] = [
   // Pure Minimalism
   {
     name: "Pure Minimal",
@@ -503,8 +503,8 @@ export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
   };
 
   // Show first 9 themes in dropdown, rest in modal
-  const previewThemes = themes.slice(0, 9);
-  const remainingCount = themes.length - 9;
+  const previewThemes = THEMES.slice(0, 9);
+  const remainingCount = THEMES.length - 9;
 
   return (
     <>
@@ -539,7 +539,7 @@ export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
                 className="w-full gap-2"
               >
                 <Grid3X3 className="w-4 h-4" />
-                View All {themes.length} Themes
+                View All {THEMES.length} Themes
               </Button>
             </div>
           )}
@@ -554,7 +554,7 @@ export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
           </DialogHeader>
           
           <div className="grid grid-cols-6 gap-4 p-4">
-            {themes.map((theme) => (
+            {THEMES.map((theme) => (
               <div key={theme.name} className="group">
                 <ThemePreview
                   theme={theme}
