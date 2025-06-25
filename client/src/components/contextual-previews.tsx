@@ -48,7 +48,7 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
         : 'none',
       WebkitTextStroke: settings.textStroke.enabled 
         ? `${settings.textStroke.width}px ${settings.textStroke.color}` 
-        : 'none',
+        : 'initial',
     };
   };
 

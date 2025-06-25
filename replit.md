@@ -180,6 +180,10 @@ Changelog:
 - June 25, 2025. Fixed text stroke persistence issue - themes now properly reset all properties when applied
 - June 25, 2025. Curated top 9 themes with exceptional visual combinations (Cyberpunk Neon, Luxury Gold, Retro Gaming, etc.)
 - June 25, 2025. Improved modal title alignment and added accessibility descriptions for better UX
+- June 25, 2025. Implemented complete CSS property reset using 'initial' values to eliminate text stroke carryover
+- June 25, 2025. Added all theme fonts to HTML preload (Cormorant Garamond, Oswald, Nunito Sans, Playfair Display)
+- June 25, 2025. Enhanced theme handler with complete settings reset to prevent race conditions
+- June 25, 2025. Fixed duplicate theme names and ensured unique theme identifiers throughout picker
 ```
 
 ## User Preferences

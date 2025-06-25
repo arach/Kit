@@ -193,10 +193,10 @@ const THEMES: Theme[] = [
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
-  // Ocean Gradient
+  // Swiss Modern
   {
-    name: "Ocean Gradient",
-    fontFamily: "Nunito",
+    name: "Swiss Modern",
+    fontFamily: "Inter",
     fontSize: 44,
     fontWeight: 600,
     backgroundColor: "#1e40af",

@@ -226,7 +226,7 @@ export function PreviewArea({ settings }: PreviewAreaProps) {
       : 'none',
     WebkitTextStroke: settings.textStroke.enabled 
       ? `${settings.textStroke.width}px ${settings.textStroke.color}` 
-      : 'none',
+      : 'initial',
   });
 
   const getSocialStyle = () => ({
@@ -239,7 +239,7 @@ export function PreviewArea({ settings }: PreviewAreaProps) {
       : 'none',
     WebkitTextStroke: settings.textStroke.enabled 
       ? `${settings.textStroke.width}px ${settings.textStroke.color}` 
-      : 'none',
+      : 'initial',
   });
 
   const getBackgroundStyle = () => {
