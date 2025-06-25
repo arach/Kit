@@ -55,6 +55,8 @@ function hslToHex(h: number, s: number, l: number): string {
   return `#${f(0)}${f(8)}${f(4)}`;
 }
 
+
+
 // Generate smart complementary colors based on current colors
 function generateSmartPalette(backgroundColor: string, textColor: string): { 
   name: string; 
@@ -383,90 +385,52 @@ export function ThemeSummaryCard({ settings, onSettingsChange, currentTheme }: T
 
             <Separator />
 
-            {/* Smart Color Palettes */}
+            {/* Color Recommendations */}
             <div className="space-y-3">
-              <Label className="text-sm font-medium">Smart Color Suggestions</Label>
-              <div className="text-xs text-muted-foreground mb-3">
-                Based on your current background ({settings.backgroundColor}) and text ({settings.textColor}) colors
-              </div>
+              <Label className="text-sm font-medium">Color Suggestions</Label>
               
-              {generateSmartPalette(settings.backgroundColor, settings.textColor).map((palette, index) => (
-                <div key={index}>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="text-xs font-medium text-muted-foreground">
-                      {palette.name}
-                    </div>
-                    <div className="text-xs text-muted-foreground italic">
-                      {palette.description}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-6 gap-1">
-                    {palette.colors.map((color, colorIndex) => (
-                      <button
-                        key={colorIndex}
-                        className="w-8 h-8 rounded border border-gray-200 hover:scale-110 transition-transform cursor-pointer relative group"
-                        style={{ backgroundColor: color }}
-                        onClick={() => handleColorChange(color, "background")}
-                        onContextMenu={(e) => {
-                          e.preventDefault();
-                          handleColorChange(color, "text");
-                        }}
-                        title={`${color} | Left: Background | Right: Text`}
-                      >
-                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                          {color}
+              {/* Smart Recommendations */}
+              <div className="space-y-2">
+                {['Triadic', 'Monochromatic', 'Tonal Variations'].map((paletteName, index) => {
+                  const palette = generateSmartPalette(settings.backgroundColor, settings.textColor)
+                    .find(p => p.name === paletteName);
+                  
+                  if (!palette) return null;
+                  
+                  return (
+                    <div key={index} className="p-2 bg-muted/30 rounded-lg">
+                      <div className="flex items-center justify-between mb-1">
+                        <div className="text-xs font-medium">{palette.name}</div>
+                        <div className="text-xs text-blue-600">
+                          Use Color Palette ←
                         </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
+                      </div>
+                      <div className="text-xs text-muted-foreground mb-2">
+                        {palette.description}
+                      </div>
+                      <div className="flex gap-1">
+                        {palette.colors.slice(0, 4).map((color, colorIndex) => (
+                          <div
+                            key={colorIndex}
+                            className="w-4 h-4 rounded border border-gray-200"
+                            style={{ backgroundColor: color }}
+                            title={color}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
 
-            {/* Custom Color Inputs */}
-            {isEditing && (
-              <div className="space-y-3">
-                <Separator />
-                <Label className="text-sm font-medium">Custom Colors</Label>
-                
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <Label className="text-xs">Background</Label>
-                    <div className="flex items-center space-x-2 mt-1">
-                      <input
-                        type="color"
-                        value={settings.backgroundColor}
-                        onChange={(e) => handleColorChange(e.target.value, "background")}
-                        className="w-8 h-8 border border-gray-300 rounded cursor-pointer"
-                      />
-                      <Input
-                        type="text"
-                        value={settings.backgroundColor}
-                        onChange={(e) => handleColorChange(e.target.value, "background")}
-                        className="flex-1 font-mono text-xs"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label className="text-xs">Text</Label>
-                    <div className="flex items-center space-x-2 mt-1">
-                      <input
-                        type="color"
-                        value={settings.textColor}
-                        onChange={(e) => handleColorChange(e.target.value, "text")}
-                        className="w-8 h-8 border border-gray-300 rounded cursor-pointer"
-                      />
-                      <Input
-                        type="text"
-                        value={settings.textColor}
-                        onChange={(e) => handleColorChange(e.target.value, "text")}
-                        className="flex-1 font-mono text-xs"
-                      />
-                    </div>
-                  </div>
+              {/* Quick Tip */}
+              <div className="p-2 bg-blue-50 rounded-lg border-l-2 border-blue-200">
+                <div className="text-xs font-medium text-blue-800 mb-1">Tip</div>
+                <div className="text-xs text-blue-700">
+                  Use the Color Palette on the left to try these suggested colors
                 </div>
               </div>
-            )}
+            </div>
           </div>
         )}
 

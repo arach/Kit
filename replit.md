@@ -203,6 +203,10 @@ Changelog:
 - June 25, 2025. Implemented color theory algorithms (complementary, analogous, triadic, monochromatic, tonal variations)
 - June 25, 2025. Smart palette generates 30 contextual colors based on current background and text colors
 - June 25, 2025. Added hover tooltips showing hex values and color theory explanations for each suggested color
+- June 25, 2025. Simplified Theme View to non-interactive summary with concise color recommendations
+- June 25, 2025. Focused right-side panel on insights and suggestions that guide users to left-side editing tools
+- June 25, 2025. Streamlined color suggestions to show only Triadic, Monochromatic, and Tonal Variations
+- June 25, 2025. Added guidance tips directing users to use Color Palette on left side for actual color changes
 ```
 
 ## User Preferences
