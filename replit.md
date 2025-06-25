@@ -164,6 +164,11 @@ Changelog:
 - June 25, 2025. Implemented shareable URLs with base64 compression and automatic URL updates
 - June 25, 2025. Redesigned export/save/share section with clear tabbed interface
 - June 25, 2025. Separated URL sharing from automatic URL updates to reduce clutter
+- June 25, 2025. Added localStorage persistence for settings across browser sessions
+- June 25, 2025. Implemented smart font size defaults based on text length (1 letter=60px, 2=50px, 3-4=40px, 5-8=32px, 9+=24px)
+- June 25, 2025. Reduced font size range from 8-125px to 10-70px for more practical icon sizing
+- June 25, 2025. Updated mobile home screen with realistic Apple app icons (Safari, Messages, Mail)
+- June 25, 2025. Changed Business Card preview to Email Signature for more relevant context
 ```
 
 ## User Preferences

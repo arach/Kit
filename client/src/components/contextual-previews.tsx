@@ -169,15 +169,19 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
       {/* Mobile Home Screen */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <h3 className="text-sm font-semibold text-slate-900 mb-4">Mobile Home Screen</h3>
-        <div className="bg-gradient-to-b from-blue-400 to-blue-600 rounded-lg p-4 text-white">
+        <div className="bg-black rounded-lg p-4 text-white">
           {/* Status Bar */}
           <div className="flex justify-between items-center text-xs mb-4">
             <span>9:41</span>
-            <div className="w-4 h-2 bg-white rounded-sm opacity-80"></div>
+            <div className="flex items-center space-x-1">
+              <div className="w-4 h-2 bg-white rounded-sm opacity-80"></div>
+              <div className="w-1 h-1 bg-white rounded-full"></div>
+            </div>
           </div>
           
           {/* App Grid */}
           <div className="grid grid-cols-4 gap-3">
+            {/* User's App */}
             <div className="text-center">
               <div 
                 className="w-12 h-12 rounded-xl mb-1 flex items-center justify-center mx-auto shadow-lg"
@@ -187,16 +191,38 @@ export function ContextualPreviews({ settings }: ContextualPreviewsProps) {
                   {getTextForSize(48, settings)}
                 </span>
               </div>
-              <div className="text-xs truncate">{getTextForSize(48, settings)}</div>
+              <div className="text-xs truncate text-white">{getTextForSize(48, settings)}</div>
             </div>
             
-            {/* Other apps */}
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="text-center">
-                <div className="w-12 h-12 bg-white bg-opacity-20 rounded-xl mb-1 mx-auto"></div>
-                <div className="text-xs">App</div>
+            {/* Apple Safari */}
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-xl mb-1 mx-auto shadow-lg bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                <div className="w-8 h-8 border-2 border-white rounded-full flex items-center justify-center">
+                  <div className="w-3 h-3 bg-white rounded-full"></div>
+                </div>
               </div>
-            ))}
+              <div className="text-xs text-white">Safari</div>
+            </div>
+            
+            {/* Apple Messages */}
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-xl mb-1 mx-auto shadow-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                <div className="w-6 h-6 bg-white rounded-lg flex items-center justify-center">
+                  <div className="w-4 h-3 bg-green-500 rounded-sm"></div>
+                </div>
+              </div>
+              <div className="text-xs text-white">Messages</div>
+            </div>
+            
+            {/* Apple Mail */}
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-xl mb-1 mx-auto shadow-lg bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 flex items-center justify-center">
+                <div className="w-6 h-4 bg-white rounded-sm flex items-center justify-center relative">
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-blue-600"></div>
+                </div>
+              </div>
+              <div className="text-xs text-white">Mail</div>
+            </div>
           </div>
         </div>
       </div>
