@@ -67,101 +67,129 @@ interface Theme {
 }
 
 const THEMES: Theme[] = [
-  // Pure Minimalism
-  {
-    name: "Pure Minimal",
-    fontFamily: "Helvetica",
-    fontSize: 52,
-    fontWeight: 300,
-    backgroundColor: "#ffffff",
-    textColor: "#000000",
-    backgroundType: "solid",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-  
-  // Swiss Modern
-  {
-    name: "Swiss Modern",
-    fontFamily: "Inter",
-    fontSize: 48,
-    fontWeight: 500,
-    backgroundColor: "#f8fafc",
-    textColor: "#1e293b",
-    backgroundType: "solid",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-  
-  // Elegant Serif
-  {
-    name: "Elegant Serif",
-    fontFamily: "Playfair Display",
-    fontSize: 54,
-    fontWeight: 400,
-    backgroundColor: "#fefbf3",
-    textColor: "#44403c",
-    backgroundType: "solid",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 2, offsetY: 2, blur: 4, opacity: 0.15, color: "#78716c" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Tech Gradient
-  {
-    name: "Tech Gradient",
-    fontFamily: "SF Pro Display",
-    fontSize: 42,
-    fontWeight: 600,
-    backgroundColor: "#6366f1",
-    textColor: "#ffffff",
-    backgroundType: "gradient",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 0, offsetY: 4, blur: 12, opacity: 0.3, color: "#4338ca" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Cyberpunk Neon
+  // Cyberpunk Neon - Bold tech aesthetic
   {
     name: "Cyberpunk Neon",
     fontFamily: "Orbitron",
-    fontSize: 40,
+    fontSize: 48,
     fontWeight: 700,
-    backgroundColor: "#000000",
+    backgroundColor: "#0a0a0a",
     textColor: "#00ff88",
     backgroundType: "solid",
-    textStroke: { enabled: true, width: 1, color: "#00ff88" },
-    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 12, opacity: 0.8, color: "#00ff88" },
+    textStroke: { enabled: true, width: 2, color: "#00ff88" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 15, opacity: 0.8, color: "#00ff88" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
-
-  // Retro Gaming
+  
+  // Luxury Gold - Premium elegance
+  {
+    name: "Luxury Gold",
+    fontFamily: "Cormorant Garamond",
+    fontSize: 52,
+    fontWeight: 600,
+    backgroundColor: "#1a1a1a",
+    textColor: "#ffd700",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 4, blur: 12, opacity: 0.6, color: "#b8860b" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+  
+  // Retro Gaming - Pixel perfect
   {
     name: "Retro Gaming",
     fontFamily: "Silkscreen",
     fontSize: 36,
     fontWeight: 400,
     backgroundColor: "#ff6b35",
-    textColor: "#ffffff",
+    textColor: "#000000",
     backgroundType: "solid",
-    textStroke: { enabled: true, width: 3, color: "#000000" },
-    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
+    textStroke: { enabled: true, width: 2, color: "#ffffff" },
+    dropShadow: { enabled: true, offsetX: 3, offsetY: 3, blur: 0, opacity: 1, color: "#cc5529" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
-  // Luxury Gold
+  // Ocean Gradient - Modern fluidity
   {
-    name: "Luxury Gold",
-    fontFamily: "Crimson Text",
-    fontSize: 48,
+    name: "Ocean Gradient",
+    fontFamily: "Inter",
+    fontSize: 46,
     fontWeight: 600,
-    backgroundColor: "#1f2937",
-    textColor: "#fbbf24",
+    backgroundColor: "#3b82f6",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 6, blur: 18, opacity: 0.4, color: "#1d4ed8" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Midnight Strike - High contrast
+  {
+    name: "Midnight Strike",
+    fontFamily: "Oswald",
+    fontSize: 50,
+    fontWeight: 600,
+    backgroundColor: "#000000",
+    textColor: "#ffffff",
+    backgroundType: "solid",
+    textStroke: { enabled: true, width: 3, color: "#3b82f6" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 20, opacity: 0.8, color: "#3b82f6" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Forest Power - Nature strength
+  {
+    name: "Forest Power",
+    fontFamily: "Montserrat",
+    fontSize: 48,
+    fontWeight: 700,
+    backgroundColor: "#166534",
+    textColor: "#ffffff",
     backgroundType: "solid",
     textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 2, offsetY: 3, blur: 8, opacity: 0.4, color: "#92400e" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 4, blur: 10, opacity: 0.5, color: "#14532d" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Sunset Burst - Vibrant energy
+  {
+    name: "Sunset Burst",
+    fontFamily: "Nunito Sans",
+    fontSize: 46,
+    fontWeight: 800,
+    backgroundColor: "#ea580c",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: true, width: 2, color: "#dc2626" },
+    dropShadow: { enabled: true, offsetX: 3, offsetY: 5, blur: 12, opacity: 0.4, color: "#c2410c" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Purple Royalty - Elegant power
+  {
+    name: "Purple Royalty",
+    fontFamily: "Playfair Display",
+    fontSize: 50,
+    fontWeight: 600,
+    backgroundColor: "#7c3aed",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 4, blur: 16, opacity: 0.5, color: "#5b21b6" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Clean Minimal - Pure simplicity
+  {
+    name: "Clean Minimal",
+    fontFamily: "SF Pro Display",
+    fontSize: 48,
+    fontWeight: 500,
+    backgroundColor: "#ffffff",
+    textColor: "#1f2937",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 2, blur: 8, opacity: 0.1, color: "#6b7280" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
@@ -489,6 +517,7 @@ export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
       loadGoogleFont(theme.fontFamily, [theme.fontWeight]);
     }
 
+    // Apply complete theme settings, ensuring all properties are reset
     onApplyTheme({
       fontFamily: theme.fontFamily,
       fontSize: theme.fontSize,
@@ -496,8 +525,19 @@ export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
       backgroundColor: theme.backgroundColor,
       textColor: theme.textColor,
       backgroundType: theme.backgroundType,
-      textStroke: theme.textStroke,
-      dropShadow: theme.dropShadow,
+      textStroke: {
+        enabled: theme.textStroke.enabled,
+        width: theme.textStroke.width,
+        color: theme.textStroke.color
+      },
+      dropShadow: {
+        enabled: theme.dropShadow.enabled,
+        offsetX: theme.dropShadow.offsetX,
+        offsetY: theme.dropShadow.offsetY,
+        blur: theme.dropShadow.blur,
+        opacity: theme.dropShadow.opacity,
+        color: theme.dropShadow.color
+      },
       textBreakpoints: theme.textBreakpoints
     });
   };
@@ -548,14 +588,17 @@ export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
 
       {/* Modal for all themes */}
       <Dialog open={showAllThemes} onOpenChange={setShowAllThemes}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto" aria-describedby="theme-modal-description">
           <DialogHeader>
             <DialogTitle>Choose a Theme</DialogTitle>
           </DialogHeader>
+          <p id="theme-modal-description" className="text-sm text-gray-600 mb-4">
+            Select from our curated collection of themes, each with unique font, color, and effect combinations.
+          </p>
           
           <div className="grid grid-cols-6 gap-4 p-4">
             {THEMES.map((theme) => (
-              <div key={theme.name} className="group">
+              <div key={theme.name} className="group flex flex-col items-center">
                 <ThemePreview
                   theme={theme}
                   size={80}
@@ -565,7 +608,7 @@ export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
                   }}
                   isSelected={currentTheme === theme.name}
                 />
-                <p className="text-xs text-center mt-2 text-gray-600 group-hover:text-gray-900">
+                <p className="text-xs text-center mt-2 text-gray-600 group-hover:text-gray-900 leading-tight">
                   {theme.name}
                 </p>
               </div>
