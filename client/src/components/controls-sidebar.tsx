@@ -78,6 +78,26 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
     }
   };
 
+  // Smart font size adjustment when text changes
+  const handleTextChange = (newText: string) => {
+    const currentText = settings.text;
+    onSettingsChange({ 
+      text: newText || "Scout",
+      // Only auto-adjust font size if user hasn't manually changed it much from smart defaults
+      fontSize: newText && newText !== currentText ? getSmartFontSize(newText) : settings.fontSize
+    });
+  };
+
+  // Smart font size function (same as in icon-maker.tsx)
+  const getSmartFontSize = (text: string): number => {
+    const length = text.length;
+    if (length === 1) return 60;      // Single letter - large
+    if (length === 2) return 50;      // Two letters - medium-large
+    if (length <= 4) return 40;       // Short words - medium
+    if (length <= 8) return 32;       // Medium words - smaller
+    return 24;                        // Long words - smallest
+  };
+
   const saveSettingsToFile = () => {
     const settingsJson = JSON.stringify(settings, null, 2);
     const blob = new Blob([settingsJson], { type: 'application/json' });
@@ -158,7 +178,7 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
               type="text"
               placeholder="Enter your text..."
               value={settings.text}
-              onChange={(e) => onSettingsChange({ text: e.target.value || "Scout" })}
+              onChange={(e) => handleTextChange(e.target.value)}
               className="w-full"
             />
           </div>
@@ -234,8 +254,8 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
                 <Slider
                   value={[settings.fontSize]}
                   onValueChange={([value]) => onSettingsChange({ fontSize: value })}
-                  min={16}
-                  max={128}
+                  min={10}
+                  max={70}
                   step={1}
                   className="flex-1"
                 />

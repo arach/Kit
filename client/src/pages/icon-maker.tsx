@@ -8,10 +8,20 @@ import { MediaKitLogo } from "@/components/media-kit-logo";
 import { IconMakerSettings } from "@/types/icon-maker";
 import { getSettingsFromUrl, updateUrlWithSettings } from "@/lib/url-encoding";
 
+// Smart font size based on text length
+function getSmartFontSize(text: string): number {
+  const length = text.length;
+  if (length === 1) return 60;      // Single letter - large
+  if (length === 2) return 50;      // Two letters - medium-large
+  if (length <= 4) return 40;       // Short words - medium
+  if (length <= 8) return 32;       // Medium words - smaller
+  return 24;                        // Long words - smallest
+}
+
 const defaultSettings: IconMakerSettings = {
   text: "Scout",
   fontFamily: "Montserrat",
-  fontSize: 48,
+  fontSize: getSmartFontSize("Scout"), // Smart default: 32px for 5 letters
   fontWeight: 600,
   backgroundColor: "#ffffff",
   backgroundType: "solid",
@@ -48,13 +58,34 @@ const defaultSettings: IconMakerSettings = {
 export default function IconMaker() {
   const [settings, setSettings] = useState<IconMakerSettings>(defaultSettings);
 
-  // Load settings from URL on mount
+  // Load settings from URL or localStorage on mount
   useEffect(() => {
     const urlSettings = getSettingsFromUrl();
     if (urlSettings) {
       setSettings(urlSettings);
+      return;
+    }
+    
+    // Fallback to localStorage if no URL settings
+    try {
+      const savedSettings = localStorage.getItem('kit-settings');
+      if (savedSettings) {
+        const parsedSettings = JSON.parse(savedSettings);
+        setSettings(parsedSettings);
+      }
+    } catch (error) {
+      console.warn('Failed to load settings from localStorage:', error);
     }
   }, []);
+
+  // Save settings to localStorage whenever they change
+  useEffect(() => {
+    try {
+      localStorage.setItem('kit-settings', JSON.stringify(settings));
+    } catch (error) {
+      console.warn('Failed to save settings to localStorage:', error);
+    }
+  }, [settings]);
 
   // Don't automatically update URL - only when sharing
   const [showExportPanel, setShowExportPanel] = useState(false);
