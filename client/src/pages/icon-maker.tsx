@@ -56,14 +56,7 @@ export default function IconMaker() {
     }
   }, []);
 
-  // Update URL when settings change (with debounce to avoid too many updates)
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      updateUrlWithSettings(settings);
-    }, 500); // 500ms debounce
-
-    return () => clearTimeout(timeoutId);
-  }, [settings]);
+  // Don't automatically update URL - only when sharing
   const [showExportPanel, setShowExportPanel] = useState(false);
 
   const updateSettings = (updates: Partial<IconMakerSettings>) => {

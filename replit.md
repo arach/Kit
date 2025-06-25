@@ -162,6 +162,8 @@ Changelog:
 - June 24, 2025. Enhanced theme system to include complete "kit" configurations with fonts, effects, and breakpoints
 - June 25, 2025. Added URL parameter encoding/compression for sharing settings configurations
 - June 25, 2025. Implemented shareable URLs with base64 compression and automatic URL updates
+- June 25, 2025. Redesigned export/save/share section with clear tabbed interface
+- June 25, 2025. Separated URL sharing from automatic URL updates to reduce clutter
 ```
 
 ## User Preferences

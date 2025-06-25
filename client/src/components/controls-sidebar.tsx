@@ -5,11 +5,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card } from "@/components/ui/card";
-import { Search, Download } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Search, Download, Save, Upload, Share2, Copy, Check, FileDown, Settings2 } from "lucide-react";
 import { IconMakerSettings } from "@/types/icon-maker";
 import { loadGoogleFont, getAvailableFonts, searchGoogleFonts } from "@/lib/google-fonts";
 import { ColorPresets } from "@/components/color-presets";
+import { generateShareableUrl } from "@/lib/url-encoding";
+import { useToast } from "@/hooks/use-toast";
 
 interface ControlsSidebarProps {
   settings: IconMakerSettings;
@@ -33,6 +36,8 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
   const [availableFonts, setAvailableFonts] = useState<string[]>([]);
   const [fontSearchQuery, setFontSearchQuery] = useState("");
   const [showFontSearch, setShowFontSearch] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     getAvailableFonts().then(setAvailableFonts);
@@ -70,6 +75,72 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
       onSettingsChange({ backgroundColor: color });
     } else {
       onSettingsChange({ textColor: color });
+    }
+  };
+
+  const saveSettingsToFile = () => {
+    const settingsJson = JSON.stringify(settings, null, 2);
+    const blob = new Blob([settingsJson], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `kit-settings-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Settings saved",
+      description: "Your settings have been downloaded as a JSON file."
+    });
+  };
+
+  const loadSettingsFromFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const loadedSettings = JSON.parse(e.target?.result as string);
+        onSettingsChange(loadedSettings);
+        toast({
+          title: "Settings loaded",
+          description: "Your settings have been loaded successfully."
+        });
+      } catch (error) {
+        toast({
+          title: "Error loading settings",
+          description: "The file format is not valid.",
+          variant: "destructive"
+        });
+      }
+    };
+    reader.readAsText(file);
+    
+    // Reset the input
+    event.target.value = '';
+  };
+
+  const copyShareableUrl = async () => {
+    try {
+      const shareableUrl = generateShareableUrl(settings);
+      await navigator.clipboard.writeText(shareableUrl);
+      setCopySuccess(true);
+      toast({
+        title: "Share URL copied!",
+        description: "Anyone with this link can view your icon settings."
+      });
+      
+      // Reset the success state after 2 seconds
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (error) {
+      toast({
+        title: "Failed to copy",
+        description: "Could not copy URL to clipboard.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -589,61 +660,183 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
         {/* Color Presets Section */}
         <ColorPresets onApplyPreset={onSettingsChange} />
 
-        {/* Export & Save Settings Section */}
+        {/* Export, Save & Share Section */}
         <div className="space-y-4 pb-6">
           <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide">
-            Export Icons & Save Settings
+            Export, Save & Share
           </h3>
           
-          {/* Save/Load Controls */}
-          <div className="grid grid-cols-2 gap-2">
-            <Button
-              variant="outline"
-              onClick={() => {
-                const settingsJson = JSON.stringify(settings, null, 2);
-                const blob = new Blob([settingsJson], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `kit-settings-${new Date().toISOString().split('T')[0]}.json`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-              }}
-              className="text-xs"
-            >
-              <Download className="h-3 w-3 mr-1" />
-              Save
-            </Button>
+          <Tabs defaultValue="export" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="export" className="text-xs">
+                <FileDown className="w-3 h-3 mr-1" />
+                Export
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="text-xs">
+                <Settings2 className="w-3 h-3 mr-1" />
+                Settings
+              </TabsTrigger>
+              <TabsTrigger value="share" className="text-xs">
+                <Share2 className="w-3 h-3 mr-1" />
+                Share
+              </TabsTrigger>
+            </TabsList>
             
-            <div className="relative">
-              <Input
-                type="file"
-                accept=".json"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                      try {
-                        const loadedSettings = JSON.parse(event.target?.result as string);
-                        onSettingsChange(loadedSettings);
-                      } catch (error) {
-                        console.error('Error loading settings:', error);
-                        alert('Invalid settings file');
+            <TabsContent value="export" className="space-y-3 mt-4">
+              <Card className="bg-slate-50">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm">Platform Formats</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <label className="flex items-center space-x-3">
+                    <Checkbox
+                      checked={settings.exportFormats.ios}
+                      onCheckedChange={(checked) => 
+                        onSettingsChange({ 
+                          exportFormats: { 
+                            ...settings.exportFormats, 
+                            ios: !!checked 
+                          } 
+                        })
                       }
-                    };
-                    reader.readAsText(file);
-                  }
-                }}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              />
-              <Button variant="outline" className="w-full text-xs pointer-events-none">
-                Load
-              </Button>
-            </div>
-          </div>
+                    />
+                    <div className="flex-1">
+                      <span className="text-sm font-medium text-slate-700">iOS App Icons</span>
+                      <span className="text-xs text-slate-500 block">
+                        Complete Apple app icon set
+                      </span>
+                    </div>
+                  </label>
+                  <label className="flex items-center space-x-3">
+                    <Checkbox
+                      checked={settings.exportFormats.android}
+                      onCheckedChange={(checked) => 
+                        onSettingsChange({ 
+                          exportFormats: { 
+                            ...settings.exportFormats, 
+                            android: !!checked 
+                          } 
+                        })
+                      }
+                    />
+                    <div className="flex-1">
+                      <span className="text-sm font-medium text-slate-700">Android Icons</span>
+                      <span className="text-xs text-slate-500 block">
+                        Play Store & device icons
+                      </span>
+                    </div>
+                  </label>
+                  <label className="flex items-center space-x-3">
+                    <Checkbox
+                      checked={settings.exportFormats.macos}
+                      onCheckedChange={(checked) => 
+                        onSettingsChange({ 
+                          exportFormats: { 
+                            ...settings.exportFormats, 
+                            macos: !!checked 
+                          } 
+                        })
+                      }
+                    />
+                    <div className="flex-1">
+                      <span className="text-sm font-medium text-slate-700">macOS Icons</span>
+                      <span className="text-xs text-slate-500 block">
+                        Desktop application icons
+                      </span>
+                    </div>
+                  </label>
+                  <label className="flex items-center space-x-3">
+                    <Checkbox
+                      checked={settings.exportFormats.web}
+                      onCheckedChange={(checked) => 
+                        onSettingsChange({ 
+                          exportFormats: { 
+                            ...settings.exportFormats, 
+                            web: !!checked 
+                          } 
+                        })
+                      }
+                    />
+                    <div className="flex-1">
+                      <span className="text-sm font-medium text-slate-700">Web Assets</span>
+                      <span className="text-xs text-slate-500 block">
+                        Favicons, headers, social media
+                      </span>
+                    </div>
+                  </label>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="settings" className="space-y-3 mt-4">
+              <Card className="bg-slate-50">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm">Configuration Files</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button
+                    onClick={saveSettingsToFile}
+                    variant="outline"
+                    className="w-full text-sm"
+                  >
+                    <Save className="w-4 h-4 mr-2" />
+                    Save Settings File
+                  </Button>
+                  
+                  <div className="relative">
+                    <input
+                      type="file"
+                      accept=".json"
+                      onChange={loadSettingsFromFile}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <Button
+                      variant="outline"
+                      className="w-full text-sm"
+                    >
+                      <Upload className="w-4 h-4 mr-2" />
+                      Load Settings File
+                    </Button>
+                  </div>
+                  
+                  <p className="text-xs text-slate-500 text-center">
+                    Save and share complete icon configurations as JSON files
+                  </p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="share" className="space-y-3 mt-4">
+              <Card className="bg-slate-50">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm">Share Configuration</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button
+                    onClick={copyShareableUrl}
+                    variant="outline"
+                    className="w-full text-sm"
+                  >
+                    {copySuccess ? (
+                      <>
+                        <Check className="w-4 h-4 mr-2 text-green-600" />
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4 mr-2" />
+                        Copy Share URL
+                      </>
+                    )}
+                  </Button>
+                  
+                  <p className="text-xs text-slate-500 text-center">
+                    Generate a link that recreates your exact icon settings
+                  </p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
           <div className="space-y-3">
             <Card className="bg-slate-50 p-4">
               <h4 className="text-sm font-medium text-slate-900 mb-3">Platform Formats</h4>
