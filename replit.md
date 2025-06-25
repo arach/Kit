@@ -175,6 +175,8 @@ Changelog:
 - June 25, 2025. Created smart text breakpoints system that generates meaningful abbreviations (S/Sco/Scout) instead of random letters
 - June 25, 2025. Redesigned 25 curated themes with carefully selected font/color/effect combinations for maximum visual impact
 - June 25, 2025. Enhanced theme variety with bold contrasts, elegant gradients, neon effects, and industry-specific styles
+- June 25, 2025. Enhanced theme picker with 3x3 grid of 64px app icon previews in dropdown and modal for all themes
+- June 25, 2025. Added visual theme previews showing actual font/color combinations with hover effects and selection states
 ```
 
 ## User Preferences

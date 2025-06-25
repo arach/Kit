@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import { Palette, Check } from "lucide-react";
+import { Palette, Check, Grid3X3 } from "lucide-react";
 import { IconMakerSettings } from "@/types/icon-maker";
+import { loadGoogleFont } from "@/lib/google-fonts";
 
 // Smart text breakpoints function to create meaningful abbreviations
 function createSmartBreakpoints(text: string) {
@@ -416,15 +418,77 @@ const themes: Theme[] = [
   }
 ];
 
+// Theme preview component that renders a 64px app icon preview
+interface ThemePreviewProps {
+  theme: Theme;
+  size?: number;
+  onClick?: () => void;
+  isSelected?: boolean;
+}
+
+function ThemePreview({ theme, size = 64, onClick, isSelected }: ThemePreviewProps) {
+  const text = theme.textBreakpoints?.smallText || "S";
+  
+  return (
+    <div 
+      className={`relative cursor-pointer rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 group ${
+        isSelected ? 'ring-2 ring-blue-500 ring-offset-2' : 'hover:ring-1 hover:ring-gray-300'
+      }`}
+      style={{ width: size, height: size }}
+      onClick={onClick}
+      title={theme.name}
+    >
+      {/* Background */}
+      <div 
+        className="w-full h-full flex items-center justify-center"
+        style={{
+          backgroundColor: theme.backgroundColor,
+          background: theme.backgroundType === 'gradient' 
+            ? `linear-gradient(135deg, ${theme.backgroundColor}, ${theme.backgroundColor}dd)` 
+            : theme.backgroundColor
+        }}
+      >
+        {/* Text */}
+        <span
+          style={{
+            fontFamily: theme.fontFamily,
+            fontSize: size * 0.4, // 40% of container size
+            fontWeight: theme.fontWeight,
+            color: theme.textColor,
+            textShadow: theme.dropShadow.enabled 
+              ? `${theme.dropShadow.offsetX}px ${theme.dropShadow.offsetY}px ${theme.dropShadow.blur}px rgba(0,0,0,${theme.dropShadow.opacity})` 
+              : 'none',
+            WebkitTextStroke: theme.textStroke.enabled 
+              ? `${theme.textStroke.width}px ${theme.textStroke.color}` 
+              : 'none'
+          }}
+        >
+          {text}
+        </span>
+      </div>
+      
+      {/* Theme name label */}
+      <div className="absolute inset-x-0 bottom-0 bg-black bg-opacity-75 text-white text-xs p-1 text-center opacity-0 group-hover:opacity-100 transition-opacity">
+        {theme.name}
+      </div>
+    </div>
+  );
+}
+
 interface ThemePickerProps {
   onApplyTheme: (theme: Partial<IconMakerSettings>) => void;
   currentTheme?: string;
 }
 
 export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [showAllThemes, setShowAllThemes] = useState(false);
+  
   const handleThemeClick = (theme: Theme) => {
+    // Load the font before applying the theme
+    if (theme.fontFamily && theme.fontFamily !== 'Helvetica' && theme.fontFamily !== 'Arial') {
+      loadGoogleFont(theme.fontFamily, [theme.fontWeight]);
+    }
+
     onApplyTheme({
       fontFamily: theme.fontFamily,
       fontSize: theme.fontSize,
@@ -436,48 +500,79 @@ export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
       dropShadow: theme.dropShadow,
       textBreakpoints: theme.textBreakpoints
     });
-    setIsOpen(false);
   };
 
+  // Show first 9 themes in dropdown, rest in modal
+  const previewThemes = themes.slice(0, 9);
+  const remainingCount = themes.length - 9;
+
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
-          <Palette className="h-4 w-4" />
-          <span className="hidden sm:inline">Themes</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48 max-h-96 overflow-y-auto">
-        {themes.map((theme) => (
-          <DropdownMenuItem
-            key={theme.name}
-            onClick={() => handleThemeClick(theme)}
-            className="flex items-center justify-between cursor-pointer"
-          >
-            <div className="flex items-center space-x-2">
-              {/* Theme Color Preview */}
-              <div className="flex items-center space-x-1">
-                <div
-                  className="w-3 h-3 rounded border"
-                  style={{
-                    backgroundColor: theme.backgroundColor === "transparent" ? "#f8fafc" : theme.backgroundColor,
-                    border: theme.backgroundColor === "transparent" ? "1px dashed #cbd5e1" : "1px solid #e2e8f0"
-                  }}
-                />
-                <div
-                  className="w-3 h-3 rounded border"
-                  style={{
-                    backgroundColor: theme.textColor,
-                    border: theme.textStroke.enabled ? `1px solid ${theme.textStroke.color}` : '1px solid #e2e8f0'
-                  }}
-                />
-              </div>
-              <span className="text-sm font-medium">{theme.name}</span>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm" className="gap-2">
+            <Palette className="w-4 h-4" />
+            <span className="hidden sm:inline">Themes</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-80 p-4">
+          {/* 3x3 Grid of theme previews */}
+          <div className="grid grid-cols-3 gap-3 mb-3">
+            {previewThemes.map((theme) => (
+              <ThemePreview
+                key={theme.name}
+                theme={theme}
+                size={64}
+                onClick={() => handleThemeClick(theme)}
+                isSelected={currentTheme === theme.name}
+              />
+            ))}
+          </div>
+          
+          {/* Show more button */}
+          {remainingCount > 0 && (
+            <div className="border-t pt-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowAllThemes(true)}
+                className="w-full gap-2"
+              >
+                <Grid3X3 className="w-4 h-4" />
+                View All {themes.length} Themes
+              </Button>
             </div>
-            {currentTheme === theme.name && <Check className="h-4 w-4" />}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      {/* Modal for all themes */}
+      <Dialog open={showAllThemes} onOpenChange={setShowAllThemes}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Choose a Theme</DialogTitle>
+          </DialogHeader>
+          
+          <div className="grid grid-cols-6 gap-4 p-4">
+            {themes.map((theme) => (
+              <div key={theme.name} className="group">
+                <ThemePreview
+                  theme={theme}
+                  size={80}
+                  onClick={() => {
+                    handleThemeClick(theme);
+                    setShowAllThemes(false);
+                  }}
+                  isSelected={currentTheme === theme.name}
+                />
+                <p className="text-xs text-center mt-2 text-gray-600 group-hover:text-gray-900">
+                  {theme.name}
+                </p>
+              </div>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
