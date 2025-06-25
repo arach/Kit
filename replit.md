@@ -169,6 +169,9 @@ Changelog:
 - June 25, 2025. Reduced font size range from 8-125px to 10-70px for more practical icon sizing
 - June 25, 2025. Updated mobile home screen with realistic Apple app icons (Safari, Messages, Mail)
 - June 25, 2025. Changed Business Card preview to Email Signature for more relevant context
+- June 25, 2025. Expanded theme system to include complete design configurations (fonts, sizes, effects, shadows, breakpoints)
+- June 25, 2025. Created 47 comprehensive design themes covering all major industries and styles
+- June 25, 2025. Themes now apply complete design systems rather than just colors
 ```
 
 ## User Preferences

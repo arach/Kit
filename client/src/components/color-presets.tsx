@@ -106,77 +106,647 @@ const colorCombinations: ColorCombination[] = [
 ];
 
 const themes: Theme[] = [
+  // Minimalist & Clean
   {
-    name: "Classic",
-    description: "Timeless black on white",
+    name: "Pure Minimal",
+    description: "Ultra-clean Helvetica on white",
+    fontFamily: "Helvetica",
+    fontSize: 48,
+    fontWeight: 300,
     backgroundColor: "#ffffff",
     textColor: "#000000",
-    strokeColor: "#64748b",
     backgroundType: "solid",
-    strokeEnabled: false
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
+    textBreakpoints: { enabled: true, smallText: "P", mediumText: "PU", largeText: "Pure", smallMax: 48, mediumMax: 128 }
   },
   {
-    name: "Midnight",
-    description: "Bold white on black",
-    backgroundColor: "#000000",
-    textColor: "#ffffff",
-    strokeColor: "#64748b",
+    name: "Swiss Precision",
+    description: "Crisp Inter with perfect spacing",
+    fontFamily: "Inter",
+    fontSize: 44,
+    fontWeight: 500,
+    backgroundColor: "#f8fafc",
+    textColor: "#1e293b",
     backgroundType: "solid",
-    strokeEnabled: false
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
+    textBreakpoints: { enabled: true, smallText: "S", mediumText: "SW", largeText: "Swiss", smallMax: 48, mediumMax: 128 }
   },
   {
-    name: "Ocean Pro",
-    description: "Professional blue with subtle stroke",
+    name: "Nordic Light",
+    description: "Scandinavian-inspired Montserrat",
+    fontFamily: "Montserrat",
+    fontSize: 42,
+    fontWeight: 400,
+    backgroundColor: "#f1f5f9",
+    textColor: "#334155",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 1, blur: 2, opacity: 0.1, color: "#64748b" },
+    textBreakpoints: { enabled: true, smallText: "N", mediumText: "NO", largeText: "Nordic", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Corporate & Professional
+  {
+    name: "Corporate Elite",
+    description: "Professional navy with strong presence",
+    fontFamily: "Source Sans Pro",
+    fontSize: 40,
+    fontWeight: 600,
     backgroundColor: "#1e40af",
     textColor: "#ffffff",
-    strokeColor: "#93c5fd",
     backgroundType: "solid",
-    strokeEnabled: true
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 2, blur: 4, opacity: 0.3, color: "#1e3a8a" },
+    textBreakpoints: { enabled: true, smallText: "C", mediumText: "CO", largeText: "Corp", smallMax: 48, mediumMax: 128 }
   },
   {
-    name: "Forest Edge",
-    description: "Natural green with defined edges",
+    name: "Executive Blue",
+    description: "Trustworthy Roboto for business",
+    fontFamily: "Roboto",
+    fontSize: 38,
+    fontWeight: 500,
+    backgroundColor: "#0f172a",
+    textColor: "#60a5fa",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 6, opacity: 0.4, color: "#1e40af" },
+    textBreakpoints: { enabled: true, smallText: "E", mediumText: "EX", largeText: "Exec", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Financial Pro",
+    description: "Serious Lato for finance sector",
+    fontFamily: "Lato",
+    fontSize: 36,
+    fontWeight: 700,
+    backgroundColor: "#374151",
+    textColor: "#f9fafb",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 2, blur: 3, opacity: 0.25, color: "#111827" },
+    textBreakpoints: { enabled: true, smallText: "F", mediumText: "FI", largeText: "Finance", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Tech & Startups
+  {
+    name: "Silicon Valley",
+    description: "Modern gradient with SF Pro styling",
+    fontFamily: "SF Pro Display",
+    fontSize: 40,
+    fontWeight: 500,
+    backgroundColor: "#6366f1",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 4, blur: 8, opacity: 0.25, color: "#4338ca" },
+    textBreakpoints: { enabled: true, smallText: "S", mediumText: "SV", largeText: "Silicon", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Tech Unicorn",
+    description: "Bold Poppins for disruptive brands",
+    fontFamily: "Poppins",
+    fontSize: 44,
+    fontWeight: 600,
+    backgroundColor: "#8b5cf6",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 6, blur: 12, opacity: 0.3, color: "#7c3aed" },
+    textBreakpoints: { enabled: true, smallText: "T", mediumText: "TE", largeText: "Tech", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Developer Dark",
+    description: "Programmer-friendly Fira Code style",
+    fontFamily: "Fira Code",
+    fontSize: 36,
+    fontWeight: 400,
+    backgroundColor: "#111827",
+    textColor: "#10b981",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 8, opacity: 0.6, color: "#10b981" },
+    textBreakpoints: { enabled: true, smallText: "D", mediumText: "DE", largeText: "Dev", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Creative & Agency
+  {
+    name: "Creative Studio",
+    description: "Artistic Playfair with sophistication",
+    fontFamily: "Playfair Display",
+    fontSize: 46,
+    fontWeight: 400,
+    backgroundColor: "#fef3c7",
+    textColor: "#92400e",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 3, offsetY: 3, blur: 6, opacity: 0.2, color: "#d97706" },
+    textBreakpoints: { enabled: true, smallText: "C", mediumText: "CR", largeText: "Creative", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Design Agency",
+    description: "Modern Nunito Sans for agencies",
+    fontFamily: "Nunito Sans",
+    fontSize: 42,
+    fontWeight: 700,
+    backgroundColor: "#ec4899",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 4, blur: 8, opacity: 0.3, color: "#be185d" },
+    textBreakpoints: { enabled: true, smallText: "D", mediumText: "DE", largeText: "Design", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Art Director",
+    description: "Bold Oswald for creative leadership",
+    fontFamily: "Oswald",
+    fontSize: 40,
+    fontWeight: 600,
+    backgroundColor: "#000000",
+    textColor: "#fbbf24",
+    backgroundType: "solid",
+    textStroke: { enabled: true, width: 1, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 2, blur: 4, opacity: 0.5, color: "#d97706" },
+    textBreakpoints: { enabled: true, smallText: "A", mediumText: "AR", largeText: "Art", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Luxury & Premium
+  {
+    name: "Luxury Gold",
+    description: "Elegant Crimson with gold accents",
+    fontFamily: "Crimson Text",
+    fontSize: 44,
+    fontWeight: 600,
+    backgroundColor: "#1f2937",
+    textColor: "#fbbf24",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 3, blur: 6, opacity: 0.4, color: "#92400e" },
+    textBreakpoints: { enabled: true, smallText: "L", mediumText: "LU", largeText: "Luxury", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Royal Purple",
+    description: "Regal Libre Baskerville styling",
+    fontFamily: "Libre Baskerville",
+    fontSize: 42,
+    fontWeight: 400,
+    backgroundColor: "#581c87",
+    textColor: "#faf5ff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 3, blur: 6, opacity: 0.4, color: "#3b0764" },
+    textBreakpoints: { enabled: true, smallText: "R", mediumText: "RO", largeText: "Royal", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Diamond Black",
+    description: "Premium Cormorant for high-end brands",
+    fontFamily: "Cormorant Garamond",
+    fontSize: 48,
+    fontWeight: 300,
+    backgroundColor: "#000000",
+    textColor: "#e5e7eb",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 8, opacity: 0.3, color: "#374151" },
+    textBreakpoints: { enabled: true, smallText: "D", mediumText: "DI", largeText: "Diamond", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Natural & Organic
+  {
+    name: "Forest Verde",
+    description: "Earth-friendly Source Sans Pro",
+    fontFamily: "Source Sans Pro",
+    fontSize: 40,
+    fontWeight: 600,
     backgroundColor: "#059669",
     textColor: "#ffffff",
-    strokeColor: "#86efac",
     backgroundType: "solid",
-    strokeEnabled: true
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 2, blur: 4, opacity: 0.25, color: "#047857" },
+    textBreakpoints: { enabled: true, smallText: "F", mediumText: "FO", largeText: "Forest", smallMax: 48, mediumMax: 128 }
   },
   {
-    name: "Sunset Glow",
-    description: "Warm gradient with glow effect",
-    backgroundColor: "#ea580c",
+    name: "Organic Earth",
+    description: "Natural Merriweather for sustainability",
+    fontFamily: "Merriweather",
+    fontSize: 38,
+    fontWeight: 400,
+    backgroundColor: "#a3a3a3",
+    textColor: "#1c1917",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 1, blur: 3, opacity: 0.2, color: "#78716c" },
+    textBreakpoints: { enabled: true, smallText: "O", mediumText: "OR", largeText: "Organic", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Garden Fresh",
+    description: "Clean Quicksand for fresh brands",
+    fontFamily: "Quicksand",
+    fontSize: 36,
+    fontWeight: 500,
+    backgroundColor: "#dcfce7",
+    textColor: "#15803d",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 4, opacity: 0.15, color: "#16a34a" },
+    textBreakpoints: { enabled: true, smallText: "G", mediumText: "GA", largeText: "Garden", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Gaming & Entertainment
+  {
+    name: "Retro Gaming",
+    description: "Pixelated Silkscreen with bold stroke",
+    fontFamily: "Silkscreen",
+    fontSize: 32,
+    fontWeight: 400,
+    backgroundColor: "#ff6b35",
     textColor: "#ffffff",
-    strokeColor: "#fed7aa",
-    backgroundType: "gradient",
-    strokeEnabled: false
+    backgroundType: "solid",
+    textStroke: { enabled: true, width: 2, color: "#000000" },
+    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
+    textBreakpoints: { enabled: true, smallText: "R", mediumText: "RT", largeText: "Retro", smallMax: 48, mediumMax: 128 }
   },
   {
-    name: "Purple Luxe",
-    description: "Premium purple with gold stroke",
+    name: "Cyberpunk Neon",
+    description: "Futuristic Orbitron with glowing effects",
+    fontFamily: "Orbitron",
+    fontSize: 38,
+    fontWeight: 700,
+    backgroundColor: "#000000",
+    textColor: "#00ff88",
+    backgroundType: "solid",
+    textStroke: { enabled: true, width: 1, color: "#00ff88" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 10, opacity: 0.8, color: "#00ff88" },
+    textBreakpoints: { enabled: true, smallText: "C", mediumText: "CY", largeText: "Cyber", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Esports Pro",
+    description: "Gaming-focused Rajdhani typography",
+    fontFamily: "Rajdhani",
+    fontSize: 42,
+    fontWeight: 600,
     backgroundColor: "#7c3aed",
     textColor: "#ffffff",
-    strokeColor: "#fbbf24",
+    backgroundType: "gradient",
+    textStroke: { enabled: true, width: 1, color: "#3b0764" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 4, blur: 8, opacity: 0.4, color: "#5b21b6" },
+    textBreakpoints: { enabled: true, smallText: "E", mediumText: "ES", largeText: "Esports", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Health & Wellness
+  {
+    name: "Medical Pro",
+    description: "Trustworthy Open Sans for healthcare",
+    fontFamily: "Open Sans",
+    fontSize: 36,
+    fontWeight: 600,
+    backgroundColor: "#2563eb",
+    textColor: "#ffffff",
     backgroundType: "solid",
-    strokeEnabled: true
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 4, opacity: 0.2, color: "#1d4ed8" },
+    textBreakpoints: { enabled: true, smallText: "M", mediumText: "ME", largeText: "Medical", smallMax: 48, mediumMax: 128 }
   },
   {
-    name: "Minimal Glass",
-    description: "Clean transparent with subtle outline",
-    backgroundColor: "transparent",
-    textColor: "#1f2937",
-    strokeColor: "#e2e8f0",
-    backgroundType: "none",
-    strokeEnabled: true
+    name: "Wellness Zen",
+    description: "Calming PT Sans for mindfulness",
+    fontFamily: "PT Sans",
+    fontSize: 40,
+    fontWeight: 400,
+    backgroundColor: "#a7f3d0",
+    textColor: "#047857",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 1, blur: 3, opacity: 0.15, color: "#059669" },
+    textBreakpoints: { enabled: true, smallText: "W", mediumText: "WE", largeText: "Wellness", smallMax: 48, mediumMax: 128 }
   },
   {
-    name: "High Contrast",
-    description: "Maximum readability design",
+    name: "Fitness Power",
+    description: "Strong Bebas Neue for fitness brands",
+    fontFamily: "Bebas Neue",
+    fontSize: 44,
+    fontWeight: 400,
+    backgroundColor: "#dc2626",
+    textColor: "#ffffff",
+    backgroundType: "solid",
+    textStroke: { enabled: true, width: 1, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 3, blur: 5, opacity: 0.4, color: "#991b1b" },
+    textBreakpoints: { enabled: true, smallText: "F", mediumText: "FI", largeText: "Fitness", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Food & Beverage
+  {
+    name: "Artisan Bakery",
+    description: "Warm Dancing Script for bakeries",
+    fontFamily: "Dancing Script",
+    fontSize: 46,
+    fontWeight: 600,
+    backgroundColor: "#fef3c7",
+    textColor: "#92400e",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 2, blur: 4, opacity: 0.2, color: "#d97706" },
+    textBreakpoints: { enabled: true, smallText: "A", mediumText: "AR", largeText: "Artisan", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Coffee House",
+    description: "Cozy Alegreya for cafés",
+    fontFamily: "Alegreya",
+    fontSize: 40,
+    fontWeight: 500,
+    backgroundColor: "#78716c",
+    textColor: "#fef7cd",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 2, blur: 4, opacity: 0.25, color: "#57534e" },
+    textBreakpoints: { enabled: true, smallText: "C", mediumText: "CO", largeText: "Coffee", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Fine Dining",
+    description: "Elegant Cormorant for upscale restaurants",
+    fontFamily: "Cormorant",
+    fontSize: 44,
+    fontWeight: 300,
+    backgroundColor: "#1f2937",
+    textColor: "#f3f4f6",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 6, opacity: 0.3, color: "#111827" },
+    textBreakpoints: { enabled: true, smallText: "F", mediumText: "FI", largeText: "Fine", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Fashion & Beauty
+  {
+    name: "Fashion Forward",
+    description: "Chic Didot for luxury fashion",
+    fontFamily: "Didot",
+    fontSize: 48,
+    fontWeight: 400,
     backgroundColor: "#000000",
     textColor: "#ffffff",
-    strokeColor: "#000000",
     backgroundType: "solid",
-    strokeEnabled: true
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
+    textBreakpoints: { enabled: true, smallText: "F", mediumText: "FA", largeText: "Fashion", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Beauty Glow",
+    description: "Soft Quattrocento for cosmetics",
+    fontFamily: "Quattrocento",
+    fontSize: 38,
+    fontWeight: 400,
+    backgroundColor: "#fdf2f8",
+    textColor: "#be185d",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 6, opacity: 0.2, color: "#ec4899" },
+    textBreakpoints: { enabled: true, smallText: "B", mediumText: "BE", largeText: "Beauty", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Boutique Chic",
+    description: "Trendy Raleway for boutiques",
+    fontFamily: "Raleway",
+    fontSize: 36,
+    fontWeight: 300,
+    backgroundColor: "#f8fafc",
+    textColor: "#334155",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 1, blur: 2, opacity: 0.1, color: "#64748b" },
+    textBreakpoints: { enabled: true, smallText: "B", mediumText: "BO", largeText: "Boutique", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Education & Learning
+  {
+    name: "Academic Pro",
+    description: "Scholarly Libre Franklin for education",
+    fontFamily: "Libre Franklin",
+    fontSize: 38,
+    fontWeight: 500,
+    backgroundColor: "#1e3a8a",
+    textColor: "#ffffff",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 4, opacity: 0.2, color: "#1e40af" },
+    textBreakpoints: { enabled: true, smallText: "A", mediumText: "AC", largeText: "Academic", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Learning Lab",
+    description: "Friendly Karla for online learning",
+    fontFamily: "Karla",
+    fontSize: 40,
+    fontWeight: 600,
+    backgroundColor: "#059669",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 3, blur: 6, opacity: 0.25, color: "#047857" },
+    textBreakpoints: { enabled: true, smallText: "L", mediumText: "LE", largeText: "Learning", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Kids Education",
+    description: "Playful Fredoka One for children",
+    fontFamily: "Fredoka One",
+    fontSize: 42,
+    fontWeight: 400,
+    backgroundColor: "#fbbf24",
+    textColor: "#1f2937",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 3, blur: 4, opacity: 0.2, color: "#f59e0b" },
+    textBreakpoints: { enabled: true, smallText: "K", mediumText: "KI", largeText: "Kids", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Travel & Adventure
+  {
+    name: "Adventure Trail",
+    description: "Bold Rubik for outdoor brands",
+    fontFamily: "Rubik",
+    fontSize: 40,
+    fontWeight: 600,
+    backgroundColor: "#dc2626",
+    textColor: "#ffffff",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 3, blur: 5, opacity: 0.3, color: "#991b1b" },
+    textBreakpoints: { enabled: true, smallText: "A", mediumText: "AD", largeText: "Adventure", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Travel Escape",
+    description: "Wanderlust-inspired Cabin for travel",
+    fontFamily: "Cabin",
+    fontSize: 38,
+    fontWeight: 500,
+    backgroundColor: "#0ea5e9",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 3, blur: 6, opacity: 0.25, color: "#0284c7" },
+    textBreakpoints: { enabled: true, smallText: "T", mediumText: "TR", largeText: "Travel", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Ocean Blue",
+    description: "Refreshing Nunito for beach brands",
+    fontFamily: "Nunito",
+    fontSize: 36,
+    fontWeight: 400,
+    backgroundColor: "#3b82f6",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 6, opacity: 0.2, color: "#1e40af" },
+    textBreakpoints: { enabled: true, smallText: "O", mediumText: "OC", largeText: "Ocean", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Real Estate & Architecture
+  {
+    name: "Real Estate Pro",
+    description: "Trustworthy Work Sans for property",
+    fontFamily: "Work Sans",
+    fontSize: 36,
+    fontWeight: 500,
+    backgroundColor: "#374151",
+    textColor: "#f9fafb",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 4, opacity: 0.2, color: "#111827" },
+    textBreakpoints: { enabled: true, smallText: "R", mediumText: "RE", largeText: "Real", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Architecture Studio",
+    description: "Modern Barlow for architects",
+    fontFamily: "Barlow",
+    fontSize: 42,
+    fontWeight: 400,
+    backgroundColor: "#f3f4f6",
+    textColor: "#1f2937",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 1, blur: 2, opacity: 0.1, color: "#374151" },
+    textBreakpoints: { enabled: true, smallText: "A", mediumText: "AR", largeText: "Arch", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Luxury Homes",
+    description: "Upscale Spectral for luxury real estate",
+    fontFamily: "Spectral",
+    fontSize: 44,
+    fontWeight: 300,
+    backgroundColor: "#1f2937",
+    textColor: "#fbbf24",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 2, blur: 4, opacity: 0.3, color: "#92400e" },
+    textBreakpoints: { enabled: true, smallText: "L", mediumText: "LU", largeText: "Luxury", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Music & Entertainment
+  {
+    name: "Music Studio",
+    description: "Rhythmic Exo for music production",
+    fontFamily: "Exo",
+    fontSize: 40,
+    fontWeight: 600,
+    backgroundColor: "#7c3aed",
+    textColor: "#ffffff",
+    backgroundType: "gradient",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 4, blur: 8, opacity: 0.3, color: "#5b21b6" },
+    textBreakpoints: { enabled: true, smallText: "M", mediumText: "MU", largeText: "Music", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Concert Vibes",
+    description: "Energetic Righteous for live music",
+    fontFamily: "Righteous",
+    fontSize: 38,
+    fontWeight: 400,
+    backgroundColor: "#ec4899",
+    textColor: "#ffffff",
+    backgroundType: "solid",
+    textStroke: { enabled: true, width: 1, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 2, offsetY: 3, blur: 5, opacity: 0.4, color: "#be185d" },
+    textBreakpoints: { enabled: true, smallText: "C", mediumText: "CO", largeText: "Concert", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Jazz Club",
+    description: "Smooth EB Garamond for jazz venues",
+    fontFamily: "EB Garamond",
+    fontSize: 42,
+    fontWeight: 400,
+    backgroundColor: "#1f2937",
+    textColor: "#fbbf24",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 6, opacity: 0.3, color: "#92400e" },
+    textBreakpoints: { enabled: true, smallText: "J", mediumText: "JA", largeText: "Jazz", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Sports & Fitness
+  {
+    name: "Sports Team",
+    description: "Athletic Anton for sports brands",
+    fontFamily: "Anton",
+    fontSize: 44,
+    fontWeight: 400,
+    backgroundColor: "#dc2626",
+    textColor: "#ffffff",
+    backgroundType: "solid",
+    textStroke: { enabled: true, width: 2, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 3, offsetY: 3, blur: 4, opacity: 0.5, color: "#991b1b" },
+    textBreakpoints: { enabled: true, smallText: "S", mediumText: "SP", largeText: "Sports", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Athletic Performance",
+    description: "Dynamic Roboto Condensed for athletics",
+    fontFamily: "Roboto Condensed",
+    fontSize: 40,
+    fontWeight: 700,
+    backgroundColor: "#1f2937",
+    textColor: "#10b981",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 3, blur: 6, opacity: 0.4, color: "#059669" },
+    textBreakpoints: { enabled: true, smallText: "A", mediumText: "AT", largeText: "Athletic", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Yoga Studio",
+    description: "Peaceful Lora for mindful movement",
+    fontFamily: "Lora",
+    fontSize: 38,
+    fontWeight: 400,
+    backgroundColor: "#a7f3d0",
+    textColor: "#047857",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 1, blur: 3, opacity: 0.15, color: "#059669" },
+    textBreakpoints: { enabled: true, smallText: "Y", mediumText: "YO", largeText: "Yoga", smallMax: 48, mediumMax: 128 }
+  },
+
+  // Legal & Professional Services
+  {
+    name: "Law Firm",
+    description: "Authoritative Trajan Pro for legal",
+    fontFamily: "Trajan Pro",
+    fontSize: 36,
+    fontWeight: 400,
+    backgroundColor: "#1e3a8a",
+    textColor: "#ffffff",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 4, opacity: 0.25, color: "#1e40af" },
+    textBreakpoints: { enabled: true, smallText: "L", mediumText: "LA", largeText: "Law", smallMax: 48, mediumMax: 128 }
+  },
+  {
+    name: "Consulting Pro",
+    description: "Professional IBM Plex Sans for consultants",
+    fontFamily: "IBM Plex Sans",
+    fontSize: 38,
+    fontWeight: 500,
+    backgroundColor: "#374151",
+    textColor: "#f9fafb",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 4, opacity: 0.2, color: "#111827" },
+    textBreakpoints: { enabled: true, smallText: "C", mediumText: "CO", largeText: "Consult", smallMax: 48, mediumMax: 128 }
   }
 ];
 
