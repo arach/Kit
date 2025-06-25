@@ -511,7 +511,7 @@ function ThemePreview({ theme, size = 64, onClick, isSelected }: ThemePreviewPro
 }
 
 interface ThemePickerProps {
-  onApplyTheme: (theme: Partial<IconMakerSettings>) => void;
+  onApplyTheme: (theme: Partial<IconMakerSettings>, themeName?: string) => void;
   currentTheme?: string;
 }
 
@@ -546,7 +546,7 @@ export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
         color: theme.dropShadow.color
       },
       textBreakpoints: theme.textBreakpoints
-    });
+    }, theme.name);
   };
 
   // Show first 9 themes in dropdown, rest in modal
@@ -559,7 +559,9 @@ export function ThemePicker({ onApplyTheme, currentTheme }: ThemePickerProps) {
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="sm" className="gap-2">
             <Palette className="w-4 h-4" />
-            <span className="hidden sm:inline">Themes</span>
+            <span className="hidden sm:inline">
+              {currentTheme ? currentTheme : 'Themes'}
+            </span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-80 p-4">

@@ -324,9 +324,10 @@ export function PreviewArea({ settings }: PreviewAreaProps) {
           <div 
             className="mx-auto bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden"
             style={{
-              width: `${(currentDevice.width * zoomLevel) / 100}px`,
+              width: `${currentDevice.width}px`,
+              height: `${currentDevice.height}px`,
               maxWidth: '100%',
-              transform: zoomLevel < 100 ? `scale(${zoomLevel / 100})` : 'none',
+              transform: `scale(${zoomLevel / 100})`,
               transformOrigin: 'top center'
             }}
           >

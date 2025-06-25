@@ -105,13 +105,16 @@ export default function IconMaker() {
     setSettings(prev => ({ ...prev, ...updates }));
   };
 
-  const handleThemeChange = (themeUpdates: Partial<IconMakerSettings>) => {
+  const handleThemeChange = (themeUpdates: Partial<IconMakerSettings>, themeName?: string) => {
     // Complete reset of all properties to prevent carryover effects
     const completeTheme: IconMakerSettings = {
       ...defaultSettings, // Start with clean defaults
       ...themeUpdates,    // Apply theme updates
     };
     setSettings(completeTheme);
+    if (themeName) {
+      setCurrentTheme(themeName);
+    }
   };
 
   const handleExportAll = () => {
