@@ -199,6 +199,10 @@ Changelog:
 - June 25, 2025. Added detailed color information with hex values, RGB conversion, click-to-copy functionality
 - June 25, 2025. Implemented extensive color palettes (grays, blues, greens, reds, yellows, purples, pinks, oranges) with 60+ colors
 - June 25, 2025. Added comprehensive effects display showing shadow/stroke settings, opacity values, and all configuration details
+- June 25, 2025. Replaced static color palettes with intelligent Smart Color Suggestions system
+- June 25, 2025. Implemented color theory algorithms (complementary, analogous, triadic, monochromatic, tonal variations)
+- June 25, 2025. Smart palette generates 30 contextual colors based on current background and text colors
+- June 25, 2025. Added hover tooltips showing hex values and color theory explanations for each suggested color
 ```
 
 ## User Preferences

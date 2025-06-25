@@ -21,6 +21,118 @@ function hexToRgb(hex: string): number[] | null {
   ] : null;
 }
 
+// Helper function to convert RGB to HSL
+function rgbToHsl(r: number, g: number, b: number): [number, number, number] {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0, s = 0, l = (max + min) / 2;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+  return [h * 360, s * 100, l * 100];
+}
+
+// Helper function to convert HSL to hex
+function hslToHex(h: number, s: number, l: number): string {
+  l /= 100;
+  const a = s * Math.min(l, 1 - l) / 100;
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12;
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color).toString(16).padStart(2, '0');
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+// Generate smart complementary colors based on current colors
+function generateSmartPalette(backgroundColor: string, textColor: string): { 
+  name: string; 
+  colors: string[]; 
+  description: string; 
+}[] {
+  const bgRgb = hexToRgb(backgroundColor);
+  const textRgb = hexToRgb(textColor);
+  
+  if (!bgRgb || !textRgb) return [];
+  
+  const [bgH, bgS, bgL] = rgbToHsl(bgRgb[0], bgRgb[1], bgRgb[2]);
+  const [textH, textS, textL] = rgbToHsl(textRgb[0], textRgb[1], textRgb[2]);
+  
+  return [
+    {
+      name: "Complementary",
+      description: "Colors opposite on the color wheel",
+      colors: [
+        hslToHex((bgH + 180) % 360, bgS, bgL),
+        hslToHex((textH + 180) % 360, textS, textL),
+        hslToHex((bgH + 150) % 360, bgS, bgL),
+        hslToHex((bgH + 210) % 360, bgS, bgL),
+        hslToHex((textH + 150) % 360, textS, textL),
+        hslToHex((textH + 210) % 360, textS, textL)
+      ]
+    },
+    {
+      name: "Analogous",
+      description: "Similar colors for harmony",
+      colors: [
+        hslToHex((bgH + 30) % 360, bgS, bgL),
+        hslToHex((bgH - 30 + 360) % 360, bgS, bgL),
+        hslToHex((textH + 30) % 360, textS, textL),
+        hslToHex((textH - 30 + 360) % 360, textS, textL),
+        hslToHex((bgH + 60) % 360, bgS, bgL),
+        hslToHex((bgH - 60 + 360) % 360, bgS, bgL)
+      ]
+    },
+    {
+      name: "Triadic",
+      description: "Evenly spaced for vibrant contrast",
+      colors: [
+        hslToHex((bgH + 120) % 360, bgS, bgL),
+        hslToHex((bgH + 240) % 360, bgS, bgL),
+        hslToHex((textH + 120) % 360, textS, textL),
+        hslToHex((textH + 240) % 360, textS, textL),
+        hslToHex((bgH + 120) % 360, Math.max(20, bgS - 20), bgL),
+        hslToHex((bgH + 240) % 360, Math.max(20, bgS - 20), bgL)
+      ]
+    },
+    {
+      name: "Monochromatic",
+      description: "Same hue, different lightness",
+      colors: [
+        hslToHex(bgH, bgS, Math.max(10, bgL - 30)),
+        hslToHex(bgH, bgS, Math.max(10, bgL - 15)),
+        hslToHex(bgH, bgS, Math.min(90, bgL + 15)),
+        hslToHex(bgH, bgS, Math.min(90, bgL + 30)),
+        hslToHex(textH, textS, Math.max(10, textL - 20)),
+        hslToHex(textH, textS, Math.min(90, textL + 20))
+      ]
+    },
+    {
+      name: "Tonal Variations",
+      description: "Saturation and lightness shifts",
+      colors: [
+        hslToHex(bgH, Math.max(10, bgS - 30), bgL),
+        hslToHex(bgH, Math.min(90, bgS + 30), bgL),
+        hslToHex(bgH, bgS, Math.max(20, bgL - 20)),
+        hslToHex(bgH, bgS, Math.min(80, bgL + 20)),
+        hslToHex(textH, Math.max(10, textS - 20), textL),
+        hslToHex(textH, Math.min(90, textS + 20), textL)
+      ]
+    }
+  ];
+}
+
 interface ThemeSummaryCardProps {
   settings: IconMakerSettings;
   onSettingsChange: (updates: Partial<IconMakerSettings>) => void;
@@ -36,17 +148,7 @@ const fontWeights = [
   { value: "800", label: "Extra Bold" }
 ];
 
-// Comprehensive color palettes for the theme view
-const colorPalettes = {
-  grays: ["#ffffff", "#f8fafc", "#f1f5f9", "#e2e8f0", "#cbd5e1", "#94a3b8", "#64748b", "#475569", "#334155", "#1e293b", "#0f172a", "#000000"],
-  blues: ["#eff6ff", "#dbeafe", "#bfdbfe", "#93c5fd", "#60a5fa", "#3b82f6", "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a"],
-  greens: ["#f0fdf4", "#dcfce7", "#bbf7d0", "#86efac", "#4ade80", "#22c55e", "#16a34a", "#15803d", "#166534", "#14532d"],
-  reds: ["#fef2f2", "#fecaca", "#fca5a5", "#f87171", "#ef4444", "#dc2626", "#b91c1c", "#991b1b", "#7f1d1d", "#450a0a"],
-  yellows: ["#fefce8", "#fef3c7", "#fde68a", "#fcd34d", "#fbbf24", "#f59e0b", "#d97706", "#b45309", "#92400e", "#78350f"],
-  purples: ["#faf5ff", "#f3e8ff", "#e9d5ff", "#d8b4fe", "#c084fc", "#a855f7", "#9333ea", "#7c3aed", "#6d28d9", "#5b21b6"],
-  pinks: ["#fdf2f8", "#fce7f3", "#fbcfe8", "#f9a8d4", "#f472b6", "#ec4899", "#db2777", "#be185d", "#9d174d", "#831843"],
-  oranges: ["#fff7ed", "#ffedd5", "#fed7aa", "#fdba74", "#fb923c", "#f97316", "#ea580c", "#dc2626", "#c2410c", "#9a3412"]
-};
+
 
 export function ThemeSummaryCard({ settings, onSettingsChange, currentTheme }: ThemeSummaryCardProps) {
   const [isEditing, setIsEditing] = useState(false);
@@ -281,20 +383,28 @@ export function ThemeSummaryCard({ settings, onSettingsChange, currentTheme }: T
 
             <Separator />
 
-            {/* Color Palettes */}
+            {/* Smart Color Palettes */}
             <div className="space-y-3">
-              <Label className="text-sm font-medium">Color Palettes</Label>
+              <Label className="text-sm font-medium">Smart Color Suggestions</Label>
+              <div className="text-xs text-muted-foreground mb-3">
+                Based on your current background ({settings.backgroundColor}) and text ({settings.textColor}) colors
+              </div>
               
-              {Object.entries(colorPalettes).map(([paletteName, colors]) => (
-                <div key={paletteName}>
-                  <div className="text-xs font-medium text-muted-foreground mb-2 capitalize">
-                    {paletteName}
+              {generateSmartPalette(settings.backgroundColor, settings.textColor).map((palette, index) => (
+                <div key={index}>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="text-xs font-medium text-muted-foreground">
+                      {palette.name}
+                    </div>
+                    <div className="text-xs text-muted-foreground italic">
+                      {palette.description}
+                    </div>
                   </div>
                   <div className="grid grid-cols-6 gap-1">
-                    {colors.map((color, index) => (
+                    {palette.colors.map((color, colorIndex) => (
                       <button
-                        key={index}
-                        className="w-8 h-8 rounded border border-gray-200 hover:scale-110 transition-transform cursor-pointer"
+                        key={colorIndex}
+                        className="w-8 h-8 rounded border border-gray-200 hover:scale-110 transition-transform cursor-pointer relative group"
                         style={{ backgroundColor: color }}
                         onClick={() => handleColorChange(color, "background")}
                         onContextMenu={(e) => {
@@ -302,7 +412,11 @@ export function ThemeSummaryCard({ settings, onSettingsChange, currentTheme }: T
                           handleColorChange(color, "text");
                         }}
                         title={`${color} | Left: Background | Right: Text`}
-                      />
+                      >
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                          {color}
+                        </div>
+                      </button>
                     ))}
                   </div>
                 </div>
