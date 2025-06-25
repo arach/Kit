@@ -81,17 +81,17 @@ const THEMES: Theme[] = [
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
   
-  // Luxury Gold - Premium elegance
+  // Terminal Green - Classic hacker aesthetic
   {
-    name: "Luxury Gold",
-    fontFamily: "Cormorant Garamond",
-    fontSize: 52,
-    fontWeight: 600,
-    backgroundColor: "#1a1a1a",
-    textColor: "#ffd700",
+    name: "Terminal Green",
+    fontFamily: "Fira Code",
+    fontSize: 42,
+    fontWeight: 500,
+    backgroundColor: "#0d1117",
+    textColor: "#00ff41",
     backgroundType: "solid",
     textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 2, offsetY: 4, blur: 12, opacity: 0.6, color: "#b8860b" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 8, opacity: 0.6, color: "#00ff41" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
   
@@ -101,6 +101,132 @@ const THEMES: Theme[] = [
     fontFamily: "Silkscreen",
     fontSize: 36,
     fontWeight: 400,
+    backgroundColor: "#1a1a2e",
+    textColor: "#ff6b6b",
+    backgroundType: "solid",
+    textStroke: { enabled: true, width: 1, color: "#ffffff" },
+    dropShadow: { enabled: true, offsetX: 3, offsetY: 3, blur: 0, opacity: 1, color: "#000000" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Code Editor - JetBrains style
+  {
+    name: "Code Editor",
+    fontFamily: "JetBrains Mono",
+    fontSize: 40,
+    fontWeight: 600,
+    backgroundColor: "#2b2b2b",
+    textColor: "#a9b7c6",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Space Terminal - Sci-fi monospace
+  {
+    name: "Space Terminal",
+    fontFamily: "Space Mono",
+    fontSize: 44,
+    fontWeight: 700,
+    backgroundColor: "#0f0f23",
+    textColor: "#ffff66",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 6, opacity: 0.8, color: "#ffff66" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Console Pro - Source Code style
+  {
+    name: "Console Pro",
+    fontFamily: "Source Code Pro",
+    fontSize: 42,
+    fontWeight: 700,
+    backgroundColor: "#1e1e1e",
+    textColor: "#d4d4d4",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: false, offsetX: 0, offsetY: 0, blur: 0, opacity: 0, color: "#000000" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Matrix Code - Digital rain aesthetic
+  {
+    name: "Matrix Code",
+    fontFamily: "Courier Prime",
+    fontSize: 40,
+    fontWeight: 700,
+    backgroundColor: "#000000",
+    textColor: "#00ff00",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 10, opacity: 0.7, color: "#00ff00" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Tech Display - Futuristic UI
+  {
+    name: "Tech Display",
+    fontFamily: "Audiowide",
+    fontSize: 46,
+    fontWeight: 400,
+    backgroundColor: "#0a0a0a",
+    textColor: "#00d4ff",
+    backgroundType: "solid",
+    textStroke: { enabled: true, width: 1, color: "#00d4ff" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 12, opacity: 0.8, color: "#00d4ff" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Minimal Code - Clean monospace
+  {
+    name: "Minimal Code",
+    fontFamily: "DM Mono",
+    fontSize: 44,
+    fontWeight: 500,
+    backgroundColor: "#ffffff",
+    textColor: "#2d3748",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 1, blur: 3, opacity: 0.1, color: "#000000" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Electric Mono - Roboto Mono style
+  {
+    name: "Electric Mono",
+    fontFamily: "Roboto Mono",
+    fontSize: 42,
+    fontWeight: 600,
+    backgroundColor: "#1a1a1a",
+    textColor: "#ff0080",
+    backgroundType: "solid",
+    textStroke: { enabled: false, width: 0, color: "#000000" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 8, opacity: 0.7, color: "#ff0080" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Giant Display - Major Mono style
+  {
+    name: "Giant Display",
+    fontFamily: "Major Mono Display",
+    fontSize: 38,
+    fontWeight: 400,
+    backgroundColor: "#000000",
+    textColor: "#ffffff",
+    backgroundType: "solid",
+    textStroke: { enabled: true, width: 2, color: "#ff4500" },
+    dropShadow: { enabled: true, offsetX: 4, offsetY: 4, blur: 0, opacity: 1, color: "#ff4500" },
+    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
+  },
+
+  // Block Display - Bungee style
+  {
+    name: "Block Display",
+    fontFamily: "Bungee",
+    fontSize: 40,
+    fontWeight: 400,
     backgroundColor: "#ff6b35",
     textColor: "#000000",
     backgroundType: "solid",
@@ -109,143 +235,17 @@ const THEMES: Theme[] = [
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
-  // Ocean Gradient - Modern fluidity
+  // Electric Grid - Electrolize style
   {
-    name: "Ocean Gradient",
-    fontFamily: "Inter",
-    fontSize: 46,
-    fontWeight: 600,
-    backgroundColor: "#3b82f6",
-    textColor: "#ffffff",
-    backgroundType: "gradient",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 0, offsetY: 6, blur: 18, opacity: 0.4, color: "#1d4ed8" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Midnight Strike - High contrast
-  {
-    name: "Midnight Strike",
-    fontFamily: "Oswald",
-    fontSize: 50,
-    fontWeight: 600,
-    backgroundColor: "#000000",
-    textColor: "#ffffff",
-    backgroundType: "solid",
-    textStroke: { enabled: true, width: 3, color: "#3b82f6" },
-    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 20, opacity: 0.8, color: "#3b82f6" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Forest Power - Nature strength
-  {
-    name: "Forest Power",
-    fontFamily: "Montserrat",
-    fontSize: 48,
-    fontWeight: 700,
-    backgroundColor: "#166534",
-    textColor: "#ffffff",
-    backgroundType: "solid",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 2, offsetY: 4, blur: 10, opacity: 0.5, color: "#14532d" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Sunset Burst - Vibrant energy
-  {
-    name: "Sunset Burst",
-    fontFamily: "Nunito Sans",
-    fontSize: 46,
-    fontWeight: 800,
-    backgroundColor: "#ea580c",
-    textColor: "#ffffff",
-    backgroundType: "gradient",
-    textStroke: { enabled: true, width: 2, color: "#dc2626" },
-    dropShadow: { enabled: true, offsetX: 3, offsetY: 5, blur: 12, opacity: 0.4, color: "#c2410c" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Purple Royalty - Elegant power
-  {
-    name: "Purple Royalty",
-    fontFamily: "Playfair Display",
-    fontSize: 50,
-    fontWeight: 600,
-    backgroundColor: "#7c3aed",
-    textColor: "#ffffff",
-    backgroundType: "gradient",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 0, offsetY: 4, blur: 16, opacity: 0.5, color: "#5b21b6" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Clean Minimal - Pure simplicity
-  {
-    name: "Clean Minimal",
-    fontFamily: "SF Pro Display",
-    fontSize: 48,
-    fontWeight: 500,
-    backgroundColor: "#ffffff",
-    textColor: "#1f2937",
-    backgroundType: "solid",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 0, offsetY: 2, blur: 8, opacity: 0.1, color: "#6b7280" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Swiss Modern
-  {
-    name: "Swiss Modern",
-    fontFamily: "Inter",
+    name: "Electric Grid",
+    fontFamily: "Electrolize",
     fontSize: 44,
-    fontWeight: 600,
-    backgroundColor: "#1e40af",
-    textColor: "#ffffff",
-    backgroundType: "gradient",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 0, offsetY: 4, blur: 8, opacity: 0.3, color: "#1e3a8a" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Forest Green
-  {
-    name: "Forest Green",
-    fontFamily: "Source Sans Pro",
-    fontSize: 42,
-    fontWeight: 600,
-    backgroundColor: "#059669",
-    textColor: "#ffffff",
+    fontWeight: 400,
+    backgroundColor: "#1a1a1a",
+    textColor: "#00d4ff",
     backgroundType: "solid",
     textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 2, offsetY: 2, blur: 6, opacity: 0.3, color: "#047857" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Sunset Gradient
-  {
-    name: "Sunset Gradient",
-    fontFamily: "Poppins",
-    fontSize: 46,
-    fontWeight: 500,
-    backgroundColor: "#ea580c",
-    textColor: "#ffffff",
-    backgroundType: "gradient",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 2, offsetY: 4, blur: 8, opacity: 0.3, color: "#c2410c" },
-    textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
-  },
-
-  // Corporate Navy
-  {
-    name: "Corporate Navy",
-    fontFamily: "Roboto",
-    fontSize: 40,
-    fontWeight: 500,
-    backgroundColor: "#1e3a8a",
-    textColor: "#ffffff",
-    backgroundType: "solid",
-    textStroke: { enabled: false, width: 0, color: "#000000" },
-    dropShadow: { enabled: true, offsetX: 1, offsetY: 2, blur: 4, opacity: 0.25, color: "#1e40af" },
+    dropShadow: { enabled: true, offsetX: 0, offsetY: 0, blur: 12, opacity: 0.8, color: "#00d4ff" },
     textBreakpoints: { enabled: true, ...createSmartBreakpoints("Scout"), smallMax: 48, mediumMax: 128 }
   },
 
