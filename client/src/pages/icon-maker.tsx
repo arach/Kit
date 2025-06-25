@@ -5,8 +5,10 @@ import { ControlsSidebar } from "@/components/controls-sidebar";
 import { PreviewArea } from "@/components/preview-area";
 import { ExportPanel } from "@/components/export-panel";
 import { MediaKitLogo } from "@/components/media-kit-logo";
+import { ThemePicker } from "@/components/theme-picker";
 import { IconMakerSettings } from "@/types/icon-maker";
 import { getSettingsFromUrl, updateUrlWithSettings } from "@/lib/url-encoding";
+import { loadGoogleFont } from "@/lib/google-fonts";
 
 // Smart font size based on text length
 function getSmartFontSize(text: string): number {
@@ -89,9 +91,21 @@ export default function IconMaker() {
 
   // Don't automatically update URL - only when sharing
   const [showExportPanel, setShowExportPanel] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState<string>("");
+
+  // Load Google Font when font family changes
+  useEffect(() => {
+    if (settings.fontFamily && settings.fontFamily !== 'Helvetica' && settings.fontFamily !== 'Arial') {
+      loadGoogleFont(settings.fontFamily, [settings.fontWeight]);
+    }
+  }, [settings.fontFamily, settings.fontWeight]);
 
   const updateSettings = (updates: Partial<IconMakerSettings>) => {
     setSettings(prev => ({ ...prev, ...updates }));
+  };
+
+  const handleThemeChange = (themeUpdates: Partial<IconMakerSettings>) => {
+    updateSettings(themeUpdates);
   };
 
   const handleExportAll = () => {
@@ -109,6 +123,10 @@ export default function IconMaker() {
             <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">Media Assets</span>
           </div>
           <div className="flex items-center space-x-4">
+            <ThemePicker 
+              onApplyTheme={handleThemeChange}
+              currentTheme={currentTheme}
+            />
             <Button variant="ghost" size="sm">
               <HelpCircle className="h-4 w-4" />
             </Button>

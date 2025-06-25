@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Download, Save, Upload, Share2, Copy, Check, FileDown, Settings2 } from "lucide-react";
 import { IconMakerSettings } from "@/types/icon-maker";
 import { loadGoogleFont, getAvailableFonts, searchGoogleFonts } from "@/lib/google-fonts";
-import { ColorPresets } from "@/components/color-presets";
+
 import { generateShareableUrl } from "@/lib/url-encoding";
 import { useToast } from "@/hooks/use-toast";
 
@@ -676,9 +676,6 @@ export function ControlsSidebar({ settings, onSettingsChange }: ControlsSidebarP
             )}
           </div>
         </div>
-
-        {/* Color Presets Section */}
-        <ColorPresets onApplyPreset={onSettingsChange} />
 
         {/* Export, Save & Share Section */}
         <div className="space-y-4 pb-6">
