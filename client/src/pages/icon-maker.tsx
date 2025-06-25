@@ -6,6 +6,7 @@ import { PreviewArea } from "@/components/preview-area";
 import { ExportPanel } from "@/components/export-panel";
 import { MediaKitLogo } from "@/components/media-kit-logo";
 import { IconMakerSettings } from "@/types/icon-maker";
+import { getSettingsFromUrl, updateUrlWithSettings } from "@/lib/url-encoding";
 
 const defaultSettings: IconMakerSettings = {
   text: "Scout",
@@ -46,6 +47,23 @@ const defaultSettings: IconMakerSettings = {
 
 export default function IconMaker() {
   const [settings, setSettings] = useState<IconMakerSettings>(defaultSettings);
+
+  // Load settings from URL on mount
+  useEffect(() => {
+    const urlSettings = getSettingsFromUrl();
+    if (urlSettings) {
+      setSettings(urlSettings);
+    }
+  }, []);
+
+  // Update URL when settings change (with debounce to avoid too many updates)
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      updateUrlWithSettings(settings);
+    }, 500); // 500ms debounce
+
+    return () => clearTimeout(timeoutId);
+  }, [settings]);
   const [showExportPanel, setShowExportPanel] = useState(false);
 
   const updateSettings = (updates: Partial<IconMakerSettings>) => {

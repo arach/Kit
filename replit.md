@@ -160,6 +160,8 @@ Changelog:
 - June 24, 2025. Added smart cutoffs support to export functions for appropriate text at each size
 - June 24, 2025. Massively expanded web export bundle with 70+ formats covering all use cases
 - June 24, 2025. Enhanced theme system to include complete "kit" configurations with fonts, effects, and breakpoints
+- June 25, 2025. Added URL parameter encoding/compression for sharing settings configurations
+- June 25, 2025. Implemented shareable URLs with base64 compression and automatic URL updates
 ```
 
 ## User Preferences
